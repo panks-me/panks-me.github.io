@@ -1,130 +1,130 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc></loc>
+        <loc>http://panks.me</loc>
     </url>
     
     
     <url>
-        <loc>/404.html</loc>
+        <loc>http://panks.me/404.html</loc>
     </url>
     
     <url>
-        <loc>/about/</loc>
+        <loc>http://panks.me/about/</loc>
     </url>
     
     <url>
-        <loc>/feed.xml</loc>
+        <loc>http://panks.me/feed.xml</loc>
     </url>
     
     <url>
-        <loc>/index.html</loc>
+        <loc>http://panks.me/index.html</loc>
     </url>
     
     <url>
-        <loc>/posts/</loc>
+        <loc>http://panks.me/posts/</loc>
     </url>
     
     <url>
-        <loc>/sitemap.xml</loc>
+        <loc>http://panks.me/sitemap.xml</loc>
     </url>
     
     <url>
-        <loc>/tags/</loc>
+        <loc>http://panks.me/tags/</loc>
     </url>
     
     <url>
-        <loc>/theme-setup/</loc>
+        <loc>http://panks.me/theme-setup/</loc>
     </url>
     
     <url>
-        <loc>/page2/index.html</loc>
+        <loc>http://panks.me/page2/index.html</loc>
     </url>
     
     <url>
-        <loc>/page3/index.html</loc>
+        <loc>http://panks.me/page3/index.html</loc>
     </url>
     
     <url>
-        <loc>/page4/index.html</loc>
+        <loc>http://panks.me/page4/index.html</loc>
     </url>
     
 
     
     <url>
-        <loc>/posts/2013/11/install-gdb-on-os-x-mavericks-from-source/</loc>
+        <loc>http://panks.me/posts/2013/11/install-gdb-on-os-x-mavericks-from-source/</loc>
     </url>
     
     <url>
-        <loc>/posts/2013/10/google-summer-of-code-2013/</loc>
+        <loc>http://panks.me/posts/2013/10/google-summer-of-code-2013/</loc>
     </url>
     
     <url>
-        <loc>/posts/2013/08/50-things-a-geek-should-apparently-know/</loc>
+        <loc>http://panks.me/posts/2013/08/50-things-a-geek-should-apparently-know/</loc>
     </url>
     
     <url>
-        <loc>/posts/2013/06/dropbox-todo-dot-txt-conky-best-note-taking-ever/</loc>
+        <loc>http://panks.me/posts/2013/06/dropbox-todo-dot-txt-conky-best-note-taking-ever/</loc>
     </url>
     
     <url>
-        <loc>/posts/2013/06/arch-linux-installation-with-os-x-on-macbook-air-dual-boot/</loc>
+        <loc>http://panks.me/posts/2013/06/arch-linux-installation-with-os-x-on-macbook-air-dual-boot/</loc>
     </url>
     
     <url>
-        <loc>/posts/2013/01/new-octopress-theme-fabric/</loc>
+        <loc>http://panks.me/posts/2013/01/new-octopress-theme-fabric/</loc>
     </url>
     
     <url>
-        <loc>/posts/2012/12/from-wordpress-to-octopress/</loc>
+        <loc>http://panks.me/posts/2012/12/from-wordpress-to-octopress/</loc>
     </url>
     
     <url>
-        <loc>/posts/2012/12/the-richard-feynman-way-of-learning-better-and-faster/</loc>
+        <loc>http://panks.me/posts/2012/12/the-richard-feynman-way-of-learning-better-and-faster/</loc>
     </url>
     
     <url>
-        <loc>/posts/2012/08/search-engines-for-deep-web/</loc>
+        <loc>http://panks.me/posts/2012/08/search-engines-for-deep-web/</loc>
     </url>
     
     <url>
-        <loc>/posts/2012/06/add-post-to-your-wordpress-blog-using-python-script/</loc>
+        <loc>http://panks.me/posts/2012/06/add-post-to-your-wordpress-blog-using-python-script/</loc>
     </url>
     
     <url>
-        <loc>/posts/2012/05/deploy-your-cloud-apps-for-free/</loc>
+        <loc>http://panks.me/posts/2012/05/deploy-your-cloud-apps-for-free/</loc>
     </url>
     
     <url>
-        <loc>/posts/2012/04/host-your-blog-on-github-for-free/</loc>
+        <loc>http://panks.me/posts/2012/04/host-your-blog-on-github-for-free/</loc>
     </url>
     
     <url>
-        <loc>/posts/2011/12/expect-talk-with-programs-using-scripts/</loc>
+        <loc>http://panks.me/posts/2011/12/expect-talk-with-programs-using-scripts/</loc>
     </url>
     
     <url>
-        <loc>/posts/2011/12/git-basic-commands/</loc>
+        <loc>http://panks.me/posts/2011/12/git-basic-commands/</loc>
     </url>
     
     <url>
-        <loc>/posts/2011/11/cron-job-to-schedule-your-jobs/</loc>
+        <loc>http://panks.me/posts/2011/11/cron-job-to-schedule-your-jobs/</loc>
     </url>
     
     <url>
-        <loc>/posts/2011/11/richard-stallman-at-iit-madras/</loc>
+        <loc>http://panks.me/posts/2011/11/richard-stallman-at-iit-madras/</loc>
     </url>
     
     <url>
-        <loc>/posts/2011/08/android-this-first-summer/</loc>
+        <loc>http://panks.me/posts/2011/08/android-this-first-summer/</loc>
     </url>
     
     <url>
-        <loc>/posts/2011/07/vim-interactive-tutorial/</loc>
+        <loc>http://panks.me/posts/2011/07/vim-interactive-tutorial/</loc>
     </url>
     
     <url>
-        <loc>/posts/2011/03/java-vs-c-plus-plus/</loc>
+        <loc>http://panks.me/posts/2011/03/java-vs-c-plus-plus/</loc>
     </url>
     
 </urlset>

@@ -2,26 +2,26 @@
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
 <title type="text">Code Greenhorn</title>
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
-<link rel="self" type="application/atom+xml" href="/feed.xml" />
-<link rel="alternate" type="text/html" href="" />
-<updated>2015-01-23T10:16:54+05:30</updated>
-<id>/</id>
+<link rel="self" type="application/atom+xml" href="http://panks.me/feed.xml" />
+<link rel="alternate" type="text/html" href="http://panks.me" />
+<updated>2015-01-23T10:40:58+05:30</updated>
+<id>http://panks.me/</id>
 <author>
   <name>Pankaj Kumar</name>
-  <uri>/</uri>
+  <uri>http://panks.me/</uri>
   <email></email>
 </author>
 
 
 <entry>
   <title type="html"><![CDATA[Install GDB on OS X Mavericks from source]]></title>
- <link rel="alternate" type="text/html" href="/posts/2013/11/install-gdb-on-os-x-mavericks-from-source/" />
-  <id>/posts/2013/11/install-gdb-on-os-x-mavericks-from-source</id>
+ <link rel="alternate" type="text/html" href="http://panks.me/posts/2013/11/install-gdb-on-os-x-mavericks-from-source/" />
+  <id>http://panks.me/posts/2013/11/install-gdb-on-os-x-mavericks-from-source</id>
   <published>2013-11-14T18:02:00+05:30</published>
   <updated>2013-11-14T18:02:00+05:30</updated>
   <author>
     <name>Pankaj Kumar</name>
-    <uri></uri>
+    <uri>http://panks.me</uri>
     <email></email>
   </author>
   <content type="html">&lt;p&gt;&lt;img src=&quot;/images/posts/Mavericks-logo.png&quot; alt=&quot;Mavericks logo&quot; /&gt;&lt;/p&gt;
@@ -172,19 +172,19 @@ But I needed GCC and GDB for one of my projects and so here goes a post about it
 &lt;p&gt;Live long and prosper&lt;/p&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;/posts/2013/11/install-gdb-on-os-x-mavericks-from-source/&quot;&gt;Install GDB on OS X Mavericks from source&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on November 14, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://panks.me/posts/2013/11/install-gdb-on-os-x-mavericks-from-source/&quot;&gt;Install GDB on OS X Mavericks from source&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;http://panks.me&quot;&gt;Code Greenhorn&lt;/a&gt; on November 14, 2013.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Google Summer of Code 2013]]></title>
- <link rel="alternate" type="text/html" href="/posts/2013/10/google-summer-of-code-2013/" />
-  <id>/posts/2013/10/google-summer-of-code-2013</id>
+ <link rel="alternate" type="text/html" href="http://panks.me/posts/2013/10/google-summer-of-code-2013/" />
+  <id>http://panks.me/posts/2013/10/google-summer-of-code-2013</id>
   <published>2013-10-24T17:14:00+05:30</published>
   <updated>2013-10-24T17:14:00+05:30</updated>
   <author>
     <name>Pankaj Kumar</name>
-    <uri></uri>
+    <uri>http://panks.me</uri>
     <email></email>
   </author>
   <content type="html">&lt;p&gt;&lt;img src=&quot;/images/posts/gsoc-2013.png&quot; alt=&quot;something&quot; /&gt;&lt;/p&gt;
@@ -219,19 +219,19 @@ But I needed GCC and GDB for one of my projects and so here goes a post about it
 
 &lt;p&gt;&lt;strong&gt;Proposal page :&lt;/strong&gt; &lt;a href=&quot;http://www.google-melange.com/gsoc/proposal/review/google/gsoc2013/sayantand/1&quot;&gt;http://www.google-melange.com/gsoc/proposal/review/google/gsoc2013/sayantand/1&lt;/a&gt;&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/posts/2013/10/google-summer-of-code-2013/&quot;&gt;Google Summer of Code 2013&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on October 24, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://panks.me/posts/2013/10/google-summer-of-code-2013/&quot;&gt;Google Summer of Code 2013&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;http://panks.me&quot;&gt;Code Greenhorn&lt;/a&gt; on October 24, 2013.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[50 Things a Geek Should(Apparently) Know]]></title>
- <link rel="alternate" type="text/html" href="/posts/2013/08/50-things-a-geek-should-apparently-know/" />
-  <id>/posts/2013/08/50-things-a-geek-should-apparently-know</id>
+ <link rel="alternate" type="text/html" href="http://panks.me/posts/2013/08/50-things-a-geek-should-apparently-know/" />
+  <id>http://panks.me/posts/2013/08/50-things-a-geek-should-apparently-know</id>
   <published>2013-08-29T04:03:00+05:30</published>
   <updated>2013-08-29T04:03:00+05:30</updated>
   <author>
     <name>Pankaj Kumar</name>
-    <uri></uri>
+    <uri>http://panks.me</uri>
     <email></email>
   </author>
   <content type="html">&lt;p&gt;&lt;img src=&quot;/images/posts/50-things-a-geek-should-know-1.jpg&quot; alt=&quot;Part 1&quot; /&gt;
@@ -240,19 +240,19 @@ But I needed GCC and GDB for one of my projects and so here goes a post about it
 
 &lt;p&gt;Credit - http://www.virtualhosting.com/blog/2013/50-things-geek-should-know/&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/posts/2013/08/50-things-a-geek-should-apparently-know/&quot;&gt;50 Things a Geek Should(Apparently) Know&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on August 29, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://panks.me/posts/2013/08/50-things-a-geek-should-apparently-know/&quot;&gt;50 Things a Geek Should(Apparently) Know&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;http://panks.me&quot;&gt;Code Greenhorn&lt;/a&gt; on August 29, 2013.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Dropbox-todo.txt-conky Best Note Taking Ever!]]></title>
- <link rel="alternate" type="text/html" href="/posts/2013/06/dropbox-todo-dot-txt-conky-best-note-taking-ever/" />
-  <id>/posts/2013/06/dropbox-todo-dot-txt-conky-best-note-taking-ever</id>
+ <link rel="alternate" type="text/html" href="http://panks.me/posts/2013/06/dropbox-todo-dot-txt-conky-best-note-taking-ever/" />
+  <id>http://panks.me/posts/2013/06/dropbox-todo-dot-txt-conky-best-note-taking-ever</id>
   <published>2013-06-29T13:03:00+05:30</published>
   <updated>2013-06-29T13:03:00+05:30</updated>
   <author>
     <name>Pankaj Kumar</name>
-    <uri></uri>
+    <uri>http://panks.me</uri>
     <email></email>
   </author>
   <content type="html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -331,19 +331,19 @@ So, thank you Wunderlist, sadly you are not the one.&lt;/p&gt;
 
 &lt;p&gt;It works like charm, open your Linux desktop with notes being displayed on your Desktop via &lt;strong&gt;conky&lt;/strong&gt;, update the notes from your Android phone and within 5 secs (well it also depends on your internet bandwidth) the notes on the Desktop are updated!&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/posts/2013/06/dropbox-todo-dot-txt-conky-best-note-taking-ever/&quot;&gt;Dropbox-todo.txt-conky Best Note Taking Ever!&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on June 29, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://panks.me/posts/2013/06/dropbox-todo-dot-txt-conky-best-note-taking-ever/&quot;&gt;Dropbox-todo.txt-conky Best Note Taking Ever!&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;http://panks.me&quot;&gt;Code Greenhorn&lt;/a&gt; on June 29, 2013.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Arch Linux Installation with OS X on Macbook Air (Dual Boot)]]></title>
- <link rel="alternate" type="text/html" href="/posts/2013/06/arch-linux-installation-with-os-x-on-macbook-air-dual-boot/" />
-  <id>/posts/2013/06/arch-linux-installation-with-os-x-on-macbook-air-dual-boot</id>
+ <link rel="alternate" type="text/html" href="http://panks.me/posts/2013/06/arch-linux-installation-with-os-x-on-macbook-air-dual-boot/" />
+  <id>http://panks.me/posts/2013/06/arch-linux-installation-with-os-x-on-macbook-air-dual-boot</id>
   <published>2013-06-27T12:59:00+05:30</published>
   <updated>2013-06-27T12:59:00+05:30</updated>
   <author>
     <name>Pankaj Kumar</name>
-    <uri></uri>
+    <uri>http://panks.me</uri>
     <email></email>
   </author>
   <content type="html">&lt;center&gt;&lt;img class=&quot;noborder&quot; src=&quot;/images/posts/arch-apple_logo.png&quot; /&gt;&lt;/center&gt;
@@ -667,19 +667,19 @@ systemctl &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;acpid
 
 &lt;p&gt;Well, so that’s all about it.&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/posts/2013/06/arch-linux-installation-with-os-x-on-macbook-air-dual-boot/&quot;&gt;Arch Linux Installation with OS X on Macbook Air (Dual Boot)&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on June 27, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://panks.me/posts/2013/06/arch-linux-installation-with-os-x-on-macbook-air-dual-boot/&quot;&gt;Arch Linux Installation with OS X on Macbook Air (Dual Boot)&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;http://panks.me&quot;&gt;Code Greenhorn&lt;/a&gt; on June 27, 2013.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[New Octopress theme- Fabric]]></title>
- <link rel="alternate" type="text/html" href="/posts/2013/01/new-octopress-theme-fabric/" />
-  <id>/posts/2013/01/new-octopress-theme-fabric</id>
+ <link rel="alternate" type="text/html" href="http://panks.me/posts/2013/01/new-octopress-theme-fabric/" />
+  <id>http://panks.me/posts/2013/01/new-octopress-theme-fabric</id>
   <published>2013-01-06T03:50:00+05:30</published>
   <updated>2013-01-06T03:50:00+05:30</updated>
   <author>
     <name>Pankaj Kumar</name>
-    <uri></uri>
+    <uri>http://panks.me</uri>
     <email></email>
   </author>
   <content type="html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -793,19 +793,19 @@ and remove the &lt;code&gt;&amp;amp; rarr;&lt;/code&gt; from it. That’s it.&lt
 &lt;p&gt;Well that’s all, hope you would like this theme. For furthur information or any suggestion feel free to contact me.&lt;/p&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;/posts/2013/01/new-octopress-theme-fabric/&quot;&gt;New Octopress theme- Fabric&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on January 06, 2013.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://panks.me/posts/2013/01/new-octopress-theme-fabric/&quot;&gt;New Octopress theme- Fabric&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;http://panks.me&quot;&gt;Code Greenhorn&lt;/a&gt; on January 06, 2013.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[From Wordpress to Octopress]]></title>
- <link rel="alternate" type="text/html" href="/posts/2012/12/from-wordpress-to-octopress/" />
-  <id>/posts/2012/12/from-wordpress-to-octopress</id>
+ <link rel="alternate" type="text/html" href="http://panks.me/posts/2012/12/from-wordpress-to-octopress/" />
+  <id>http://panks.me/posts/2012/12/from-wordpress-to-octopress</id>
   <published>2012-12-24T18:20:00+05:30</published>
   <updated>2012-12-24T18:20:00+05:30</updated>
   <author>
     <name>Pankaj Kumar</name>
-    <uri></uri>
+    <uri>http://panks.me</uri>
     <email></email>
   </author>
   <content type="html">&lt;center&gt;&lt;img class=&quot;noborder&quot; src=&quot;/images/posts/octopress-logo.png&quot; /&gt;&lt;/center&gt;
@@ -822,7 +822,7 @@ databases. &lt;/p&gt;
 and of course you can deploy it if you have your own web hosting, &lt;/p&gt;
 
 &lt;h2&gt;Goodbye! Wordpress&lt;/h2&gt;
-&lt;p&gt;&lt;img src=&quot;/images/posts/Exit-Signboard2.jpg&quot; alt=&quot;Goodbye Wordpess&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://panks.me/images/posts/Exit-Signboard2.jpg&quot; alt=&quot;Goodbye Wordpess&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;You can use &lt;a href=&quot;https://github.com/thomasf/exitwp/&quot;&gt;exitwp&lt;/a&gt; to extract the posts from your Wordpess blog which would convert your XML to markdown format, which can be used with Octopress directly. You can extract everything apart from comments, if you used disqus or &lt;a href=&quot;http://livefyre.com&quot;&gt;livefyre&lt;/a&gt; or some similar service then transferring comments shouldn’t be a problem at all, else you might have to just say good-bye to them.&lt;/p&gt;
 
@@ -899,19 +899,19 @@ and run&lt;/p&gt;
 
 &lt;p&gt;Blogging is just a breeze now. I love you Octopress!&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/posts/2012/12/from-wordpress-to-octopress/&quot;&gt;From Wordpress to Octopress&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on December 24, 2012.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://panks.me/posts/2012/12/from-wordpress-to-octopress/&quot;&gt;From Wordpress to Octopress&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;http://panks.me&quot;&gt;Code Greenhorn&lt;/a&gt; on December 24, 2012.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[The Richard Feynman way of learning better and faster]]></title>
- <link rel="alternate" type="text/html" href="/posts/2012/12/the-richard-feynman-way-of-learning-better-and-faster/" />
-  <id>/posts/2012/12/the-richard-feynman-way-of-learning-better-and-faster</id>
+ <link rel="alternate" type="text/html" href="http://panks.me/posts/2012/12/the-richard-feynman-way-of-learning-better-and-faster/" />
+  <id>http://panks.me/posts/2012/12/the-richard-feynman-way-of-learning-better-and-faster</id>
   <published>2012-12-13T05:10:00+05:30</published>
   <updated>2012-12-13T05:10:00+05:30</updated>
   <author>
     <name>Pankaj Kumar</name>
-    <uri></uri>
+    <uri>http://panks.me</uri>
     <email></email>
   </author>
   <content type="html">&lt;list&gt;
@@ -937,23 +937,23 @@ Notes: &lt;a href=&quot;http://www.scotthyoung.com/mit/801-notes.pdf&quot;&gt;ht
 
 &lt;/li&gt;&lt;/li&gt;&lt;/list&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/posts/2012/12/the-richard-feynman-way-of-learning-better-and-faster/&quot;&gt;The Richard Feynman way of learning better and faster&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on December 13, 2012.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://panks.me/posts/2012/12/the-richard-feynman-way-of-learning-better-and-faster/&quot;&gt;The Richard Feynman way of learning better and faster&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;http://panks.me&quot;&gt;Code Greenhorn&lt;/a&gt; on December 13, 2012.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Search engines for deep web]]></title>
- <link rel="alternate" type="text/html" href="/posts/2012/08/search-engines-for-deep-web/" />
-  <id>/posts/2012/08/search-engines-for-deep-web</id>
+ <link rel="alternate" type="text/html" href="http://panks.me/posts/2012/08/search-engines-for-deep-web/" />
+  <id>http://panks.me/posts/2012/08/search-engines-for-deep-web</id>
   <published>2012-08-12T14:36:00+05:30</published>
   <updated>2012-08-12T14:36:00+05:30</updated>
   <author>
     <name>Pankaj Kumar</name>
-    <uri></uri>
+    <uri>http://panks.me</uri>
     <email></email>
   </author>
   <content type="html">&lt;p&gt;&lt;br /&gt;
-&lt;img src=&quot;/images/posts/Deep-Web.jpg&quot; alt=&quot;Deep Web&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;http://panks.me/images/posts/Deep-Web.jpg&quot; alt=&quot;Deep Web&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;The Deep Web (also called the Deepnet, the Invisible Web, the Undernet or the hidden Web) is World Wide Web content that is not part of the Surface Web, which is indexed by standard search engines. It represents a gargantuan part of the internet which is not accessible through regular searches via google or other search engines.&lt;/p&gt;
 
 &lt;p&gt;Searching on the Internet today can be compared to dragging a net across the surface of the ocean. While a great deal may be caught in the net, there is still a wealth of information that is deep, and therefore, missed. The reason is simple: Most of the Web’s information is buried far down on dynamically generated sites, and standard search engines never find it.&lt;/p&gt;
@@ -973,23 +973,23 @@ Notes: &lt;a href=&quot;http://www.scotthyoung.com/mit/801-notes.pdf&quot;&gt;ht
 &lt;li&gt;&lt;a href=&quot;http://www.techxtra.ac.uk/index.html&quot;&gt;TechXtra&lt;/a&gt; - Mostly for mathematics and computing needs&lt;/li&gt;
 &lt;/list&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/posts/2012/08/search-engines-for-deep-web/&quot;&gt;Search engines for deep web&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on August 12, 2012.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://panks.me/posts/2012/08/search-engines-for-deep-web/&quot;&gt;Search engines for deep web&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;http://panks.me&quot;&gt;Code Greenhorn&lt;/a&gt; on August 12, 2012.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Add post to your wordpress Blog using python script]]></title>
- <link rel="alternate" type="text/html" href="/posts/2012/06/add-post-to-your-wordpress-blog-using-python-script/" />
-  <id>/posts/2012/06/add-post-to-your-wordpress-blog-using-python-script</id>
+ <link rel="alternate" type="text/html" href="http://panks.me/posts/2012/06/add-post-to-your-wordpress-blog-using-python-script/" />
+  <id>http://panks.me/posts/2012/06/add-post-to-your-wordpress-blog-using-python-script</id>
   <published>2012-06-12T08:00:00+05:30</published>
   <updated>2012-06-12T08:00:00+05:30</updated>
   <author>
     <name>Pankaj Kumar</name>
-    <uri></uri>
+    <uri>http://panks.me</uri>
     <email></email>
   </author>
   <content type="html">&lt;p&gt;&lt;br /&gt;
-&lt;img src=&quot;/images/posts/python-logo.png&quot; alt=&quot;Python Logo&quot; /&gt;&lt;/p&gt;
+&lt;img src=&quot;http://panks.me/images/posts/python-logo.png&quot; alt=&quot;Python Logo&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;I was searching for some way(read script) to automatically transfer/add post to my WordPress blog from another site. The main mission was to transfer around 500 posts to wordpress and no way I was going to do it manually.
 On googling a little bit I got to know wordpress has it’s own api which uses xlrpc interface for communicating to blog and I can use that to automate my job. Below is the script I used. I just set the vars and loops and started it in terminal and voila! within ~30 min the new wordpress was up and running proudly with 500 new posts.
@@ -1028,19 +1028,19 @@ You may also add custom date and time to your posts.&lt;/li&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;/posts/2012/06/add-post-to-your-wordpress-blog-using-python-script/&quot;&gt;Add post to your wordpress Blog using python script&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on June 12, 2012.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://panks.me/posts/2012/06/add-post-to-your-wordpress-blog-using-python-script/&quot;&gt;Add post to your wordpress Blog using python script&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;http://panks.me&quot;&gt;Code Greenhorn&lt;/a&gt; on June 12, 2012.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Deploy your cloud apps for free]]></title>
- <link rel="alternate" type="text/html" href="/posts/2012/05/deploy-your-cloud-apps-for-free/" />
-  <id>/posts/2012/05/deploy-your-cloud-apps-for-free</id>
+ <link rel="alternate" type="text/html" href="http://panks.me/posts/2012/05/deploy-your-cloud-apps-for-free/" />
+  <id>http://panks.me/posts/2012/05/deploy-your-cloud-apps-for-free</id>
   <published>2012-05-31T07:26:00+05:30</published>
   <updated>2012-05-31T07:26:00+05:30</updated>
   <author>
     <name>Pankaj Kumar</name>
-    <uri></uri>
+    <uri>http://panks.me</uri>
     <email></email>
   </author>
   <content type="html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -1066,19 +1066,19 @@ Scala. If you need database you get a 5 MB database for free. &lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;OpenShift&lt;/strong&gt; – &lt;a href=&quot;http://openshift.redhat.com/&quot;&gt;www.openshift.redhat.com&lt;/a&gt; is a similar (free) service . Choose the express option at &lt;a href=&quot;https://openshift.redhat.com/app/platform&quot;&gt;https://openshift.redhat.com/app/platform&lt;/a&gt; to get started. It follows similar strategy as that of heroku.&lt;/p&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;/posts/2012/05/deploy-your-cloud-apps-for-free/&quot;&gt;Deploy your cloud apps for free&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on May 31, 2012.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://panks.me/posts/2012/05/deploy-your-cloud-apps-for-free/&quot;&gt;Deploy your cloud apps for free&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;http://panks.me&quot;&gt;Code Greenhorn&lt;/a&gt; on May 31, 2012.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Host your blog on Github for free]]></title>
- <link rel="alternate" type="text/html" href="/posts/2012/04/host-your-blog-on-github-for-free/" />
-  <id>/posts/2012/04/host-your-blog-on-github-for-free</id>
+ <link rel="alternate" type="text/html" href="http://panks.me/posts/2012/04/host-your-blog-on-github-for-free/" />
+  <id>http://panks.me/posts/2012/04/host-your-blog-on-github-for-free</id>
   <published>2012-04-30T07:20:00+05:30</published>
   <updated>2012-04-30T07:20:00+05:30</updated>
   <author>
     <name>Pankaj Kumar</name>
-    <uri></uri>
+    <uri>http://panks.me</uri>
     <email></email>
   </author>
   <content type="html">&lt;center&gt;&lt;img class=&quot;noborder&quot; src=&quot;/images/posts/githubicon.png&quot; /&gt;&lt;/center&gt;
@@ -1096,19 +1096,19 @@ But as Github will not really provide you a server running php, mysql, etc so th
 &lt;h2 id=&quot;edit&quot;&gt;EDIT&lt;/h2&gt;
 &lt;p&gt;They changed the domain for your webpages from &lt;strong&gt;http://YOURUSERNAME.github.com&lt;/strong&gt; to &lt;strong&gt;http://YOURUSERNAME.github.io&lt;/strong&gt; so you will have to create the repository with the same name.&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/posts/2012/04/host-your-blog-on-github-for-free/&quot;&gt;Host your blog on Github for free&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on April 30, 2012.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://panks.me/posts/2012/04/host-your-blog-on-github-for-free/&quot;&gt;Host your blog on Github for free&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;http://panks.me&quot;&gt;Code Greenhorn&lt;/a&gt; on April 30, 2012.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Expect- talk with programs using scripts]]></title>
- <link rel="alternate" type="text/html" href="/posts/2011/12/expect-talk-with-programs-using-scripts/" />
-  <id>/posts/2011/12/expect-talk-with-programs-using-scripts</id>
+ <link rel="alternate" type="text/html" href="http://panks.me/posts/2011/12/expect-talk-with-programs-using-scripts/" />
+  <id>http://panks.me/posts/2011/12/expect-talk-with-programs-using-scripts</id>
   <published>2011-12-22T07:07:00+05:30</published>
   <updated>2011-12-22T07:07:00+05:30</updated>
   <author>
     <name>Pankaj Kumar</name>
-    <uri></uri>
+    <uri>http://panks.me</uri>
     <email></email>
   </author>
   <content type="html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -1132,19 +1132,19 @@ You can this page to get an idea of how expect works, it contains few basic exam
 starting with a number between 1 and 99, they would be executed in ascending order, ex. &lt;code&gt;5-myscript.sh&lt;/code&gt;, default is 50.&lt;/p&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;/posts/2011/12/expect-talk-with-programs-using-scripts/&quot;&gt;Expect- talk with programs using scripts&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on December 22, 2011.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://panks.me/posts/2011/12/expect-talk-with-programs-using-scripts/&quot;&gt;Expect- talk with programs using scripts&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;http://panks.me&quot;&gt;Code Greenhorn&lt;/a&gt; on December 22, 2011.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Git basic commands]]></title>
- <link rel="alternate" type="text/html" href="/posts/2011/12/git-basic-commands/" />
-  <id>/posts/2011/12/git-basic-commands</id>
+ <link rel="alternate" type="text/html" href="http://panks.me/posts/2011/12/git-basic-commands/" />
+  <id>http://panks.me/posts/2011/12/git-basic-commands</id>
   <published>2011-12-11T07:11:00+05:30</published>
   <updated>2011-12-11T07:11:00+05:30</updated>
   <author>
     <name>Pankaj Kumar</name>
-    <uri></uri>
+    <uri>http://panks.me</uri>
     <email></email>
   </author>
   <content type="html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -1526,19 +1526,19 @@ file stays in the working directory, on the disk.&lt;/p&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 
-  &lt;p&gt;&lt;a href=&quot;/posts/2011/12/git-basic-commands/&quot;&gt;Git basic commands&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on December 11, 2011.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://panks.me/posts/2011/12/git-basic-commands/&quot;&gt;Git basic commands&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;http://panks.me&quot;&gt;Code Greenhorn&lt;/a&gt; on December 11, 2011.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Cron job to schedule your jobs]]></title>
- <link rel="alternate" type="text/html" href="/posts/2011/11/cron-job-to-schedule-your-jobs/" />
-  <id>/posts/2011/11/cron-job-to-schedule-your-jobs</id>
+ <link rel="alternate" type="text/html" href="http://panks.me/posts/2011/11/cron-job-to-schedule-your-jobs/" />
+  <id>http://panks.me/posts/2011/11/cron-job-to-schedule-your-jobs</id>
   <published>2011-11-15T08:20:00+05:30</published>
   <updated>2011-11-15T08:20:00+05:30</updated>
   <author>
     <name>Pankaj Kumar</name>
-    <uri></uri>
+    <uri>http://panks.me</uri>
     <email></email>
   </author>
   <content type="html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -1681,19 +1681,19 @@ It’s actually a demon. (In case you don’t know) &lt;a href=&quot;http://en.w
 
 &lt;p&gt;Comments are allowed in crontabs, but they must be preceded with a ‘&lt;code&gt;#&lt;/code&gt;’, and must be on a line by them self.&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/posts/2011/11/cron-job-to-schedule-your-jobs/&quot;&gt;Cron job to schedule your jobs&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on November 15, 2011.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://panks.me/posts/2011/11/cron-job-to-schedule-your-jobs/&quot;&gt;Cron job to schedule your jobs&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;http://panks.me&quot;&gt;Code Greenhorn&lt;/a&gt; on November 15, 2011.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Richard Stallman at IIT Madras]]></title>
- <link rel="alternate" type="text/html" href="/posts/2011/11/richard-stallman-at-iit-madras/" />
-  <id>/posts/2011/11/richard-stallman-at-iit-madras</id>
+ <link rel="alternate" type="text/html" href="http://panks.me/posts/2011/11/richard-stallman-at-iit-madras/" />
+  <id>http://panks.me/posts/2011/11/richard-stallman-at-iit-madras</id>
   <published>2011-11-06T07:33:00+05:30</published>
   <updated>2011-11-06T07:33:00+05:30</updated>
   <author>
     <name>Pankaj Kumar</name>
-    <uri></uri>
+    <uri>http://panks.me</uri>
     <email></email>
   </author>
   <content type="html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -1734,19 +1734,19 @@ Kernel. Then came in picture the guy called Linus Torvalds, he had already writt
 
 &lt;p&gt;Visit &lt;a href=&quot;http://www.gnu.org&quot;&gt;GNU&lt;/a&gt; website for more info.&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/posts/2011/11/richard-stallman-at-iit-madras/&quot;&gt;Richard Stallman at IIT Madras&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on November 06, 2011.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://panks.me/posts/2011/11/richard-stallman-at-iit-madras/&quot;&gt;Richard Stallman at IIT Madras&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;http://panks.me&quot;&gt;Code Greenhorn&lt;/a&gt; on November 06, 2011.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Android this first SummeR]]></title>
- <link rel="alternate" type="text/html" href="/posts/2011/08/android-this-first-summer/" />
-  <id>/posts/2011/08/android-this-first-summer</id>
+ <link rel="alternate" type="text/html" href="http://panks.me/posts/2011/08/android-this-first-summer/" />
+  <id>http://panks.me/posts/2011/08/android-this-first-summer</id>
   <published>2011-08-14T06:42:00+05:30</published>
   <updated>2011-08-14T06:42:00+05:30</updated>
   <author>
     <name>Pankaj Kumar</name>
-    <uri></uri>
+    <uri>http://panks.me</uri>
     <email></email>
   </author>
   <content type="html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -1780,19 +1780,19 @@ and of course: &lt;a href=&quot;http://developer.android.com/index.html&quot;&gt
 
 &lt;p&gt;it’s kind of all set, need to give a start. Flying home day after. Will start from next week hopefully.&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/posts/2011/08/android-this-first-summer/&quot;&gt;Android this first SummeR&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on August 14, 2011.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://panks.me/posts/2011/08/android-this-first-summer/&quot;&gt;Android this first SummeR&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;http://panks.me&quot;&gt;Code Greenhorn&lt;/a&gt; on August 14, 2011.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Vim – Interactive tutorial]]></title>
- <link rel="alternate" type="text/html" href="/posts/2011/07/vim-interactive-tutorial/" />
-  <id>/posts/2011/07/vim-interactive-tutorial</id>
+ <link rel="alternate" type="text/html" href="http://panks.me/posts/2011/07/vim-interactive-tutorial/" />
+  <id>http://panks.me/posts/2011/07/vim-interactive-tutorial</id>
   <published>2011-07-29T07:38:00+05:30</published>
   <updated>2011-07-29T07:38:00+05:30</updated>
   <author>
     <name>Pankaj Kumar</name>
-    <uri></uri>
+    <uri>http://panks.me</uri>
     <email></email>
   </author>
   <content type="html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -1847,19 +1847,19 @@ operating systems.
 out: &lt;a href=&quot;http://www.openvim.com/tutorial.html&quot;&gt;http://www.openvim.com/tutorial.html&lt;/a&gt;
 If you are starting with Vim, I would recommend you to try it out once, just for fun. :) &lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/posts/2011/07/vim-interactive-tutorial/&quot;&gt;Vim – Interactive tutorial&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on July 29, 2011.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://panks.me/posts/2011/07/vim-interactive-tutorial/&quot;&gt;Vim – Interactive tutorial&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;http://panks.me&quot;&gt;Code Greenhorn&lt;/a&gt; on July 29, 2011.&lt;/p&gt;</content>
 </entry>
 
 
 <entry>
   <title type="html"><![CDATA[Java vs C++]]></title>
- <link rel="alternate" type="text/html" href="/posts/2011/03/java-vs-c-plus-plus/" />
-  <id>/posts/2011/03/java-vs-c-plus-plus</id>
+ <link rel="alternate" type="text/html" href="http://panks.me/posts/2011/03/java-vs-c-plus-plus/" />
+  <id>http://panks.me/posts/2011/03/java-vs-c-plus-plus</id>
   <published>2011-03-11T07:30:00+05:30</published>
   <updated>2011-03-11T07:30:00+05:30</updated>
   <author>
     <name>Pankaj Kumar</name>
-    <uri></uri>
+    <uri>http://panks.me</uri>
     <email></email>
   </author>
   <content type="html">&lt;center&gt;&lt;img class=&quot;noborder&quot; src=&quot;/images/posts/FlamingGodzillaSmall.png&quot; /&gt;&lt;/center&gt;
@@ -1953,7 +1953,7 @@ The article goes something like this…&lt;/p&gt;
 
 &lt;p&gt;(You had ones? Lucky bastard! All we got were zeros.)&lt;/p&gt;
 
-  &lt;p&gt;&lt;a href=&quot;/posts/2011/03/java-vs-c-plus-plus/&quot;&gt;Java vs C++&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on March 11, 2011.&lt;/p&gt;</content>
+  &lt;p&gt;&lt;a href=&quot;http://panks.me/posts/2011/03/java-vs-c-plus-plus/&quot;&gt;Java vs C++&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;http://panks.me&quot;&gt;Code Greenhorn&lt;/a&gt; on March 11, 2011.&lt;/p&gt;</content>
 </entry>
 
 </feed>
