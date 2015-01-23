@@ -1,0 +1,1959 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+<title type="text">Code Greenhorn</title>
+<generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
+<link rel="self" type="application/atom+xml" href="/feed.xml" />
+<link rel="alternate" type="text/html" href="" />
+<updated>2015-01-23T10:16:54+05:30</updated>
+<id>/</id>
+<author>
+  <name>Pankaj Kumar</name>
+  <uri>/</uri>
+  <email></email>
+</author>
+
+
+<entry>
+  <title type="html"><![CDATA[Install GDB on OS X Mavericks from source]]></title>
+ <link rel="alternate" type="text/html" href="/posts/2013/11/install-gdb-on-os-x-mavericks-from-source/" />
+  <id>/posts/2013/11/install-gdb-on-os-x-mavericks-from-source</id>
+  <published>2013-11-14T18:02:00+05:30</published>
+  <updated>2013-11-14T18:02:00+05:30</updated>
+  <author>
+    <name>Pankaj Kumar</name>
+    <uri></uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;img src=&quot;/images/posts/Mavericks-logo.png&quot; alt=&quot;Mavericks logo&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;With Mavericks Update, Apple has replaced GDB by LLDB, which is a part of the &lt;a href=&quot;http://llvm.org/&quot;&gt;LLVM&lt;/a&gt; suit.&lt;/p&gt;
+
+&lt;p&gt;It might have been a good move on Apple’s side as it includes tons of new features and is also catching up with gdb on the run-time performance part (you can read more about it &lt;a href=&quot;http://lldb.llvm.org/tutorial.html&quot;&gt;here&lt;/a&gt;).
+But I needed GCC and GDB for one of my projects and so here goes a post about it.&lt;/p&gt;
+
+&lt;h1 id=&quot;installation&quot;&gt;Installation&lt;/h1&gt;
+&lt;p&gt;You can get GCC by installing &lt;strong&gt;Command-line-tools&lt;/strong&gt; package in OS X.&lt;/p&gt;
+
+&lt;p&gt;If you hit &lt;code&gt;gcc&lt;/code&gt; in terminal it will prompt you for installing command line tool package, you can also fetch it directly from Apple dev download section &lt;a href=&quot;https://developer.apple.com/downloads/&quot;&gt;https://developer.apple.com/downloads/&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;But that comes with LLDB as the debugger, unlike previous releases of OS X (till Mountain Lion) which included GDB too.
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;You can install GDB using Homebrew or Macports (see below for instructions), but here I’ll be covering up how to install it from source in detail.&lt;/p&gt;
+
+&lt;h2 id=&quot;homebrew&quot;&gt;Homebrew&lt;/h2&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;    brew install homebrew/dupes/gdb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;macports&quot;&gt;Macports&lt;/h2&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;    sudo port install gdb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;and &lt;code&gt;sudo ggdb&lt;/code&gt; will launch gdb&lt;/p&gt;
+
+&lt;h2 id=&quot;from-source&quot;&gt;From Source&lt;/h2&gt;
+
+&lt;h3 id=&quot;fetch-the-source&quot;&gt;Fetch the source&lt;/h3&gt;
+
+&lt;p&gt;Fetch the gdb source from the gnu ftp &lt;a href=&quot;ftp://ftp.gnu.org/gnu/gdb/&quot;&gt;ftp://ftp.gnu.org/gnu/gdb/&lt;/a&gt;. I used version &lt;a href=&quot;ftp://ftp.gnu.org/gnu/gdb/gdb-7.6.1.tar.gz&quot;&gt;7.6.1&lt;/a&gt; (latest at the time of writting this post).&lt;/p&gt;
+
+&lt;h3 id=&quot;compile-it&quot;&gt;Compile it&lt;/h3&gt;
+&lt;p&gt;While building release after 7.0 on Mac you might get errors which should have been “warning: format not a string literal and no format arguments” warnings. To avoid this we will configure along with &lt;code&gt;--disable-intl&lt;/code&gt; flag. &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;    ./configure --disable-intl
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Furthur we will modify the generated Makefile to supress the errors&lt;/p&gt;
+
+&lt;p&gt;Change line 383 (in version 7.6.1) in Makefile to&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;    &lt;span class=&quot;nv&quot;&gt;CFLAGS&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; -g -O2 -Wno-string-plus-int
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Compile the source&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;    make
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;and Install it&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;    sudo make install
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;setting-it-up&quot;&gt;Setting it up&lt;/h2&gt;
+
+&lt;p&gt;Now if you try to debug using &lt;code&gt;gdb&lt;/code&gt; you would get the following error&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;    Unable to find Mach task port &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;process-id 28885: &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;os/kern&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; failure &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;0x5&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;.
+     &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;please check gdb is codesigned - see taskgated&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;8&lt;span class=&quot;o&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This is because to run a process under a debugger, debugger needs to have complete access over the process, which Darwin kernel will not allow by default, because it can be used in malicious ways.&lt;/p&gt;
+
+&lt;p&gt;So to allow gdb to control another process we need to sign it with any system-trusted code signing authority.&lt;/p&gt;
+
+&lt;p&gt;For that you need to generate a certificate.&lt;/p&gt;
+
+&lt;h3 id=&quot;generate-certificate-for-signing&quot;&gt;Generate Certificate for signing&lt;/h3&gt;
+
+&lt;p&gt;Launch Keychain Access application : &lt;strong&gt;Launchpad &amp;gt; Others &amp;gt; Keychain Access&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/keychainaccess.png&quot; alt=&quot;Keychain Access Window&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Open menu &lt;strong&gt;Keychain Access &amp;gt; Certificate Assistant &amp;gt; Create a Certificate…&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/keychainaccess2.png&quot; alt=&quot;Keychain Access Window&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Choose some name for the certificate (gdbc here), &lt;/p&gt;
+
+&lt;p&gt;Identity Type: &lt;code&gt;Self Signed Root&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Certificate Type: &lt;code&gt;Code Signing&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;and check the &lt;code&gt;Let me override defaults&lt;/code&gt; checkbox. &lt;/p&gt;
+
+&lt;p&gt;Keep continuing with default values untill you get the dialog box where you need to specify the location for the certificate, set the Keychain to &lt;code&gt;System&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/keychainaccess3.png&quot; alt=&quot;Keychain Access Window&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;After the certificate is created you can see it in under &lt;strong&gt;System&lt;/strong&gt; keychains.&lt;/p&gt;
+
+&lt;p&gt;Select &lt;strong&gt;Get Info&lt;/strong&gt; from the context menu and in the dialoge box that appears expand &lt;strong&gt;Trust&lt;/strong&gt; and set &lt;strong&gt;Code Signing&lt;/strong&gt; to &lt;code&gt;Always Trust&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now quit Keychain Access application and restart &lt;code&gt;taskgated&lt;/code&gt; process by killing it&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;    killall taskgated
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now to sign the certificate you can run&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;    codesign -fs gdbc /usr/local/bin/gdb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;but it will ask for an administrative username and it’s password. You need to enable &lt;code&gt;root&lt;/code&gt; user to do so.&lt;/p&gt;
+
+&lt;h3 id=&quot;enable-root-user&quot;&gt;Enable Root user&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;From the Apple menu choose &lt;strong&gt;System Preferences…&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;From System Preferences window choose &lt;strong&gt;Users &amp;amp; Groups&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/eru.png&quot; alt=&quot;Keychain Access Window&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Click the lock and authenticate as an administrator account.&lt;/li&gt;
+  &lt;li&gt;Click &lt;strong&gt;Login Options…&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;Click the &lt;strong&gt;Join…&lt;/strong&gt; button at the bottom right.&lt;/li&gt;
+  &lt;li&gt;Click the &lt;strong&gt;Open Directory Utility…&lt;/strong&gt; button.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/eru2.png&quot; alt=&quot;Keychain Access Window&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Click the lock in the Directory Utility window and authenticate as an administrator account.&lt;/li&gt;
+  &lt;li&gt;Choose &lt;strong&gt;Enable Root User&lt;/strong&gt; from the Edit menu.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/eru3.png&quot; alt=&quot;Keychain Access Window&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Enter the root password you wish to use in both the Password and Verify fields, then click OK.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;the-end&quot;&gt;The End&lt;/h2&gt;
+&lt;p&gt;Now just run the following command to sign the certificate, enter username as &lt;code&gt;root&lt;/code&gt; and it’s password and you are done.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;    codesign -fs gdbc /usr/local/bin/gdb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Live long and prosper&lt;/p&gt;
+
+
+  &lt;p&gt;&lt;a href=&quot;/posts/2013/11/install-gdb-on-os-x-mavericks-from-source/&quot;&gt;Install GDB on OS X Mavericks from source&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on November 14, 2013.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Google Summer of Code 2013]]></title>
+ <link rel="alternate" type="text/html" href="/posts/2013/10/google-summer-of-code-2013/" />
+  <id>/posts/2013/10/google-summer-of-code-2013</id>
+  <published>2013-10-24T17:14:00+05:30</published>
+  <updated>2013-10-24T17:14:00+05:30</updated>
+  <author>
+    <name>Pankaj Kumar</name>
+    <uri></uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;img src=&quot;/images/posts/gsoc-2013.png&quot; alt=&quot;something&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I mentored two projects for Google Summer of Code this year (2013), under &lt;a href=&quot;http://kde.org&quot;&gt;KDE&lt;/a&gt; for &lt;a href=&quot;http://digikam.org&quot;&gt;digiKam&lt;/a&gt; project.&lt;/p&gt;
+
+&lt;p&gt;Check them out by fetching the latest kipi-plugin source from here: &lt;a href=&quot;https://projects.kde.org/projects/extragear/graphics/kipi-plugins/repository&quot;&gt;https://projects.kde.org/projects/extragear/graphics/kipi-plugins/repository&lt;/a&gt; :)&lt;/p&gt;
+
+&lt;p&gt;or linux users can also install &lt;strong&gt;digikam&lt;/strong&gt; and &lt;strong&gt;kipi-plugin&lt;/strong&gt; packages from your repository.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h3&gt;Cloud Integration Export Plugin&lt;/h3&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Description :&lt;/strong&gt;  Creating a kipi export plugin for putting the pictures on cloud storage devices like Google Drive, DropBox, etc.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Student :&lt;/strong&gt; &lt;a href=&quot;https://plus.google.com/104511513259179445417/posts&quot;&gt;Saurabh Patel&lt;/a&gt; (saurabhpatel7717 &lt;strong&gt;at&lt;/strong&gt; gmail &lt;strong&gt;dot&lt;/strong&gt; com)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proposal page :&lt;/strong&gt; &lt;a href=&quot;http://www.google-melange.com/gsoc/proposal/review/google/gsoc2013/saurabh_patel/1&quot;&gt;http://www.google-melange.com/gsoc/proposal/review/google/gsoc2013/saurabh_patel/1&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;g-post&quot; data-href=&quot;https://plus.google.com/100127992760143250422/posts/QBDxe1yr3c7&quot;&gt;&lt;/div&gt;
+
+&lt;h3&gt;Local Adjustment Tool in digiKam&lt;/h3&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Description :&lt;/strong&gt; digiKam features an existing graphical interface tool &amp;#8220;image editor&amp;#8221; to make manipulations and user defined edits in an image. Apart from the local contrast tool, these edits apply to the entire image. The local adjustment tool would help users to make user defined selections in the image, based on the color of a point selected and a circle encircling the region identifying the region of interest of the user.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Student :&lt;/strong&gt; &lt;a href=&quot;https://plus.google.com/u/0/100302360459800439676/posts&quot;&gt;Sayantan Datta&lt;/a&gt; (kenzo &lt;strong&gt;dot&lt;/strong&gt; zombie &lt;strong&gt;at&lt;/strong&gt; gmail &lt;strong&gt;dot&lt;/strong&gt; com)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proposal page :&lt;/strong&gt; &lt;a href=&quot;http://www.google-melange.com/gsoc/proposal/review/google/gsoc2013/sayantand/1&quot;&gt;http://www.google-melange.com/gsoc/proposal/review/google/gsoc2013/sayantand/1&lt;/a&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;/posts/2013/10/google-summer-of-code-2013/&quot;&gt;Google Summer of Code 2013&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on October 24, 2013.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[50 Things a Geek Should(Apparently) Know]]></title>
+ <link rel="alternate" type="text/html" href="/posts/2013/08/50-things-a-geek-should-apparently-know/" />
+  <id>/posts/2013/08/50-things-a-geek-should-apparently-know</id>
+  <published>2013-08-29T04:03:00+05:30</published>
+  <updated>2013-08-29T04:03:00+05:30</updated>
+  <author>
+    <name>Pankaj Kumar</name>
+    <uri></uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;img src=&quot;/images/posts/50-things-a-geek-should-know-1.jpg&quot; alt=&quot;Part 1&quot; /&gt;
+&lt;!--more--&gt;
+&lt;img src=&quot;/images/posts/50-things-a-geek-should-know-2.jpg&quot; alt=&quot;Part 1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Credit - http://www.virtualhosting.com/blog/2013/50-things-geek-should-know/&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;/posts/2013/08/50-things-a-geek-should-apparently-know/&quot;&gt;50 Things a Geek Should(Apparently) Know&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on August 29, 2013.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Dropbox-todo.txt-conky Best Note Taking Ever!]]></title>
+ <link rel="alternate" type="text/html" href="/posts/2013/06/dropbox-todo-dot-txt-conky-best-note-taking-ever/" />
+  <id>/posts/2013/06/dropbox-todo-dot-txt-conky-best-note-taking-ever</id>
+  <published>2013-06-29T13:03:00+05:30</published>
+  <updated>2013-06-29T13:03:00+05:30</updated>
+  <author>
+    <name>Pankaj Kumar</name>
+    <uri></uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;I own a Macbook on which I run OS X and Linux and an Andoid phone.
+I really wanted a notetaking app which would work across all these devices and would keep all my notes syncd and well managed.
+I am a guy who procrastinate a lot and I wanted something (some sort of widget) which would sit right on my Desktop and my phone home screen, reminding me to do what is important.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;h2&gt;Options&lt;/h2&gt;
+
+&lt;p&gt;Let&amp;#8217;s take a look at the options:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.rememberthemilk.com&quot;&gt;RTM&lt;/a&gt; (Remember the milk)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A really famous and powerful app, which even had plasma widget in KDE, I was really hoping this would do the job, but sadly the widget wasn&amp;#8217;t available anymore for latest version of KDE and also for placing a widget on your Android home screen you need to buy the &amp;#8220;pro&amp;#8221;(or whatver) version of it from Android market for which you will have to pay annually. Haha.. :D&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.wunderlist.com&quot;&gt;Wunderlist&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A really nice cross platform notetaking app, or perhaps more than that, you can set reminds which would pop up on your phone and also you will be sent an email, for free!. But sadly they didn&amp;#8217;t have any app for Linux for Wunderlist 2. App for Wunderlist 1 worked &amp;#8216;OK&amp;#8217; for Wunderlist 2 on my Arch but then again I wanted something which sits on my desktop, not some app which I need to launch and then press &lt;strong&gt;sync&lt;/strong&gt; button, which might or might not sync after that.
+So, thank you Wunderlist, sadly you are not the one.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://todoist.com/&quot;&gt;Todoist&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A really nice app for Android (with widget) also for Mac but nothing for Linux. :( Also for setting reminders you need to pay (though that was not something which I really wanted)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://astrid.com&quot;&gt;Astrid&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;No way to access in LInux, may be via web (I didn&amp;#8217;t check)&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.any.do&quot;&gt;Any.do&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;A really nice solution for android, but no app for LInux, apart from web browser plugin.&lt;/p&gt;
+
+&lt;p&gt;Finally after thinking for while and checking out few apps, I got a way out to get what I wanted.&lt;/p&gt;
+
+&lt;center&gt;
+&lt;img class=&quot;noborder&quot; src=&quot;/images/posts/conky.png&quot; /&gt;&lt;br /&gt;
+&lt;img class=&quot;noborder&quot; src=&quot;/images/posts/dropbox_logo.png&quot; /&gt;&lt;img class=&quot;noborder&quot; src=&quot;/images/posts/todotxt_logo.png&quot; /&gt;
+&lt;/center&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&quot;https://www.dropbox.com/&quot;&gt;Dropbox&lt;/a&gt; + &lt;a href=&quot;http://todotxt.com&quot;&gt;todo.txt&lt;/a&gt; + &lt;a href=&quot;http://conky.sourceforge.net&quot;&gt;conky&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Dropbox&lt;/strong&gt; : A service to upload files online and also have a copy of them offline. App available for OS X, Linux, Android, iOS(idc). All the files would be synced across all your devices and it works like charm, the daemon does a really nice job.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;todo.txt&lt;/strong&gt; : An Android app using which you can make a plain text todo list in a file, which would be stored in your Dropbox account. (You need to have Dropbox app installed on your phone to use it). It has one time fee of around $2, which I was ready to pay happily.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;conky&lt;/strong&gt; : Is piece of software, which can monitor system variable and display them on you Desktop. All I wanted it to do was to read a file and display it on my Desktop, which I was expecting a widget to do, but conky does it better than any widget out there.&lt;/p&gt;
+
+&lt;h2&gt;Installation&lt;/h2&gt;
+
+&lt;p&gt;So, it&amp;#8217;s simple.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Make a directory &amp;#8216;todo&amp;#8217; (or whatever name you like) in your Dropbox account&lt;/li&gt;
+&lt;li&gt;Place a file &amp;#8220;todo.txt&amp;#8221; inside it&lt;/li&gt;
+&lt;li&gt;Install &lt;strong&gt;Dropbox&lt;/strong&gt; on your Android phone, OS X and Linux, and &lt;strong&gt;todo.txt&lt;/strong&gt; on your Android phone&lt;/li&gt;
+&lt;li&gt;Configure &lt;strong&gt;todo.txt&lt;/strong&gt; app on your phone to use /todo/todo.txt file for storing notes&lt;/li&gt;
+&lt;li&gt;Use conky script to display the content of /todo/todo.txt on your Linux Desktop&lt;/li&gt;
+&lt;li&gt;Use &lt;strong&gt;todo.txt&lt;/strong&gt; app&amp;#8217;s widget on your Android home screen&lt;/li&gt;
+&lt;li&gt;Use &lt;strong&gt;&lt;a href=&quot;https://itunes.apple.com/in/app/geektool/id456877552?mt=12&quot;&gt;GeekTool&lt;/a&gt;&lt;/strong&gt; on OS X, which would do the job of conky and would display the content of /todo/todo.txt on Mac Desktop&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Use&lt;/h2&gt;
+
+&lt;p&gt;It works like charm, open your Linux desktop with notes being displayed on your Desktop via &lt;strong&gt;conky&lt;/strong&gt;, update the notes from your Android phone and within 5 secs (well it also depends on your internet bandwidth) the notes on the Desktop are updated!&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;/posts/2013/06/dropbox-todo-dot-txt-conky-best-note-taking-ever/&quot;&gt;Dropbox-todo.txt-conky Best Note Taking Ever!&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on June 29, 2013.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Arch Linux Installation with OS X on Macbook Air (Dual Boot)]]></title>
+ <link rel="alternate" type="text/html" href="/posts/2013/06/arch-linux-installation-with-os-x-on-macbook-air-dual-boot/" />
+  <id>/posts/2013/06/arch-linux-installation-with-os-x-on-macbook-air-dual-boot</id>
+  <published>2013-06-27T12:59:00+05:30</published>
+  <updated>2013-06-27T12:59:00+05:30</updated>
+  <author>
+    <name>Pankaj Kumar</name>
+    <uri></uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;center&gt;&lt;img class=&quot;noborder&quot; src=&quot;/images/posts/arch-apple_logo.png&quot; /&gt;&lt;/center&gt;
+
+&lt;p&gt;Second day and finally now I can Dual boot my Macbook Air with &lt;a href=&quot;https://www.archlinux.org&quot;&gt;Arch Linux&lt;/a&gt; and OS X (Mountain lion). Moments of happiness :D
+If you are a regular Windows user the rest of the article would probably be of no use (also boring may be) to you, so I recommend you check out my other posts.&lt;/p&gt;
+
+&lt;p&gt;Phew.. So with Windows fan gone, lets go on to the next level, if you have been a Linux user for a while using Linux in a virtual machine or one of those &lt;a href=&quot;http://www.ubuntu.com/about/about-ubuntu/derivatives&quot;&gt;[&lt;strong&gt;fillAnyThingHere&lt;/strong&gt;]untus&lt;/a&gt; then you must be wondering why I wrote this post, as Linux installation unlike in 90s is pretty straight forward nowadays.&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;So just to put some light, I was using Ubuntu(and it’s variants) since last few years, but as they started adding lots and lots of bells and whistles to it, just to attracted the newly migrated (Windows) users, it turned into an ugly OS which takes few seconds just to open the unity launcher(or whatever fancy name they gave it).&lt;/p&gt;
+
+&lt;p&gt;Check out this video on &lt;a href=&quot;http://www.youtube.com/watch?v=Sh-cnaJoGCw&quot;&gt;Why Linux (read Ubuntu) Sucks&lt;/a&gt;, just for fun.&lt;/p&gt;
+
+&lt;p&gt;One more reason as to why I got stuck to these -untus was because we have a clone of Ubuntu’s repository in our local server at my college so installing anything was just a matter of seconds. Getting irritated (read Saturated if you are a -untu user) I finally decided to make a switch to Arch Linux. Which is a bare bone GNU/Linux OS which come with minimal set of packages and you add everything on your own whatever you wish to, a true DIY OS. Arch FTW! :D&lt;/p&gt;
+
+&lt;p&gt;&lt;del&gt;But there was cost to it, once I made the switch I would be accessing package repositories at my internet speed (which is usually pathetic in my college),&lt;/del&gt; (My college got Arch repo mirror finally, &lt;a href=&quot;ftp://ftp.iitm.ac.in/archlinux&quot;&gt;ftp://ftp.iitm.ac.in/archlinux&lt;/a&gt;) so I kept procrastinating it, but finally while my internship at Microsoft India (writing this post from my cabin right now) I got a good internet bandwidth and finally made the switch.&lt;/p&gt;
+
+&lt;p&gt;Unlike those -untus the process of installing Arch Linux (I’m talking about Dual boot here, not just Arch on your entire hard disk) on Macbook Air is not just a ‘Press Next’ process. You have to configure everything on your own starting from hard disk partition and type to your networking and even bootloader.
+It took me two days to get it the way I wanted. So I thought I would document it down for the &lt;a href=&quot;http://xkcd.com/979/&quot;&gt;people from the future&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Before I start I would like to point it out that &lt;a href=&quot;https://wiki.archlinux.org/index.php/Beginners&#39;_Guide&quot;&gt;Arch Linux’s wiki&lt;/a&gt; is one of the best documentations out there, though some people might argue that Gentoo has the best documentation, to which I won’t disagree. So read it up, have it at your side while installation, it’s THE Bible.&lt;/p&gt;
+
+&lt;h2&gt;Prepare the USB for booting&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.archlinux.org/download/&quot;&gt;Download&lt;/a&gt; the latest ISO of Arch Linux&lt;/li&gt;
+&lt;li&gt;Make a bootable USB of Arch linux while you are in your OS X using &lt;strong&gt;dd&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;&#39;dd if==&amp;lt;path to .iso file&amp;gt; of==/dev/&lt;yourdevice&gt; bs==1M&#39;&amp;lt;/code&amp;gt;&lt;/yourdevice&gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;(You can find your device Id by using &lt;strong&gt;diskutil&lt;/strong&gt; type &lt;code&gt;diskutil list&lt;/code&gt; in your OS X terminal)&lt;/p&gt;
+
+&lt;p&gt;Plug in your USB key and hold ‘alt/option’ button while your system boots up, choose the USB to boot from.&lt;/p&gt;
+
+&lt;h2&gt;Partitioning&lt;/h2&gt;
+
+&lt;p&gt;Use &lt;strong&gt;cgdisk&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;When the system is up and running. open cgdisk.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;cgdisk /dev/sda
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;It would list you existing partion, don’t mess up with the Mac partition (there would be 3, normally) just use the free space and create 4 new partition (You can create more, I used same partion for root and home and had a swap partition).&lt;/p&gt;
+
+&lt;p&gt;Press down arrow key to select the free space and create new partitions, leave a free space of at least 128MB after Mac partitions before making the first partition.&lt;/p&gt;
+
+&lt;p&gt;Make the following 4 partitions:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;Size            Partition Type          Partition Name
+
+128 MB          Apple HFS+              Boot Loader
+256 MB          Linux filesystem        Boot
+X MB            Linux Swap              Swap space
+Rest of space   Linux filesystem        Root
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Try to keep swap space (X) double the size of your physical memory (RAM).&lt;/p&gt;
+
+&lt;h2&gt;Keep the network ready&lt;/h2&gt;
+
+&lt;p&gt;As you are gonna download lot many packages you need to be online, so plugin your ethernet cable via adapter. Or you can do USB tethering from your smartphone. &lt;/p&gt;
+
+&lt;p&gt;To connect to WiFi network run &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;wifi-menu
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;To check run:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;ping google.com
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;Format and mount partition&lt;/h2&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;mkfs.ext4 /dev/sda5
+mkswap /dev/sda6
+mkfs.ext4 /dev/sda7
+mount /dev/sda7 /mnt
+mkdir /mnt/boot &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; mount /dev/sda5 /mnt/boot
+swapon /dev/sda6
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;Installation&lt;/h2&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;pacstrap /mnt base base-devel
+genfstab -p /mnt &amp;gt;&amp;gt; /mnt/etc/fstab
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;[&lt;strong&gt;VERY IMP&lt;/strong&gt;]
+If your hard disk in SSD the change your fstab file parameters, open your fstab file &lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;nano /mnt/etc/fstab
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;and make changes in it as below:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;/dev/sda5      /boot  ext2  defaults,relatime,stripe&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;4    0 2
+/dev/sda7        /      ext4  defaults,noatime,discard,data&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;writeback   0 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;Configure system&lt;/h2&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;arch-chroot /mnt /bin/bash 
+&lt;span class=&quot;nb&quot;&gt;echo &lt;/span&gt;archer &amp;gt; /etc/hostname     &lt;span class=&quot;c&quot;&gt;#Replace archer by whatever hostname you want to use&lt;/span&gt;
+ln -s /usr/share/zoneinfo/Asia/Calcutta /etc/localtime 
+hwclock --systohc --utc 
+useradd -m -g users -G wheel -s /bin/bash myusername &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; passwd mypassword   &lt;span class=&quot;c&quot;&gt;#Replace myusername and mypassword&lt;/span&gt;
+sudo pacman -S sudo
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Give yourself sudo right:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;nano /etc/sudoers &lt;span class=&quot;c&quot;&gt;# uncomment wheel line&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;To set up your locale, run:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;sudo nano /etc/locale.gen
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Uncomment the desired locals. For me this was:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;en_US.UTF-8 UTF-8&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;en_CA.UTF-8 UTF-8&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Generate these locales by running:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;locale-gen
+&lt;span class=&quot;nb&quot;&gt;echo &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;LANG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;en_US.UTF8 &amp;gt; /etc/locale.conf
+&lt;span class=&quot;nb&quot;&gt;export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;LANG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;en_US.UTF-8
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Modify your &lt;strong&gt;/etc/mkinitcpio.conf&lt;/strong&gt; file to insert &lt;code&gt;keyboard&lt;/code&gt; after &lt;code&gt;autodetect&lt;/code&gt; in the &lt;strong&gt;HOOK&lt;/strong&gt; section.
+Then run:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;mkinitcpio -p linux
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;Here comes the Bootloader&lt;/h2&gt;
+
+&lt;p&gt;This is the trickiest part, so don’t go anywhere.&lt;/p&gt;
+
+&lt;p&gt;What we will be doing is to boot using OS X native EFI boot loader, so install &lt;strong&gt;grub-efi-x86_64&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;pacman -S grub-efi-x86_64
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;change &lt;strong&gt;/etc/default/grub&lt;/strong&gt; to look like&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;GRUB_CMDLINE_LINUX_DEFAULT&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;quiet rootflags=data=writeback&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now generate &lt;strong&gt;boot.efi&lt;/strong&gt; with GRUB&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;grub-mkconfig -o boot/grub/grub.cfg
+grub-mkstandalone -o boot.efi -d usr/lib/grub/x86_64-efi -O x86_64-efi -C xz boot/grub/grub.cfg
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now &lt;strong&gt;boot.efi&lt;/strong&gt; would be present in the current directly (or somewhere else if you changed the path in the command above), copy it somewhere.&lt;/p&gt;
+
+&lt;p&gt;How?&lt;/p&gt;
+
+&lt;p&gt;You can mount your USB and copy to it:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;mkdir /mnt/usbdisk &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; mount /dev/sdb /mnt/usbdisk 
+cp boot.efi /mnt/usbdisk/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Or you can SCP it to some other computer (for SSH you need to install &lt;strong&gt;openssh&lt;/strong&gt; package).&lt;/p&gt;
+
+&lt;p&gt;If you only have WiFi at your disposal and don’t have an ethernet then you might wanna install the following packages before rebooting for the WiFi to work on reboot:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;pacman install iw wireless_tools wpa_supplicant dialog
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;also install &lt;code&gt;networkmanager&lt;/code&gt; and enable it using &lt;code&gt;NetworkManager.service&lt;/code&gt;. Read &lt;a href=&quot;https://wiki.archlinux.org/index.php/NetworkManager&quot;&gt;Arch wiki&lt;/a&gt; for more info.&lt;/p&gt;
+
+&lt;h2&gt;Reboot (Back to the Mac world)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;exit chroot: &lt;code&gt;exit&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Reboot your system &lt;code&gt;sudo reboot&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Launch &lt;strong&gt;Disk Utility&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Format the partition made for boot (&lt;strong&gt;/dev/sda4&lt;/strong&gt;), using Max OS X(Journaled) filesystem.&lt;/li&gt;
+&lt;li&gt;Create the following the directories and file in /dev/sda4:
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;|___mach_kernel
+|___System
+       |
+       |___Library
+              |
+              |___CoreServices
+                      |
+                      |___SystemVersion.plist
+                      |___boot.efi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Commands for above:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; /Volumes/disk0s4
+mkdir System mach_kernel
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;System
+mkdir Library
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;Library
+mkdir CoreServices
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;CoreServices
+touch SystemVersion.plist
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Copy the &lt;strong&gt;boot.efi&lt;/strong&gt; generated while installation to &lt;strong&gt;CoreServices&lt;/strong&gt; directory, and paste the following in &lt;strong&gt;SystemVersion.plist&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&amp;lt;xml &lt;span class=&quot;nv&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;1.0&amp;quot;&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;encoding&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;utf-8&amp;quot;&lt;/span&gt;?&amp;gt;
+&amp;lt;plist &lt;span class=&quot;nv&quot;&gt;version&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;1.0&amp;quot;&lt;/span&gt;&amp;gt;
+&amp;lt;dict&amp;gt;
+    &amp;lt;key&amp;gt;ProductBuildVersion&amp;lt;/key&amp;gt;
+    &amp;lt;string&amp;gt;&amp;lt;/string&amp;gt;
+    &amp;lt;key&amp;gt;ProductName&amp;lt;/key&amp;gt;
+    &amp;lt;string&amp;gt;Linux&amp;lt;/string&amp;gt;
+    &amp;lt;key&amp;gt;ProductVersion&amp;lt;/key&amp;gt;
+    &amp;lt;string&amp;gt;Arch Linux&amp;lt;/string&amp;gt;
+&amp;lt;/dict&amp;gt;
+&amp;lt;/plist&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;and now &lt;strong&gt;bless&lt;/strong&gt; this partition to make it bootable&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;sudo bless --device /dev/disk0s4 --setBoot
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now you are all set, you can reboot and hold ‘alt/option’ key and choose &lt;strong&gt;disk0s4&lt;/strong&gt; to boot from to boot into Arch Linux.&lt;/p&gt;
+
+&lt;h2&gt;Post Installtion&lt;/h2&gt;
+
+&lt;h3&gt;Xorg&lt;/h3&gt;
+
+&lt;p&gt;Install Xorg server&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;pacman -S xorg xf86-input-synaptics acpid
+systemctl &lt;span class=&quot;nb&quot;&gt;enable &lt;/span&gt;acpid
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;Network&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Use &lt;code&gt;iwconfig&lt;/code&gt; to check the ethernet and run
+&lt;code&gt;systemctl start dhcpcd.service@eth0&lt;/code&gt; #or whatever your ethernet name is&lt;/li&gt;
+&lt;li&gt;You can use &lt;code&gt;wifi-menu&lt;/code&gt; to connect to Wi-Fi Networks&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;Sound&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Install &lt;strong&gt;ALSA&lt;/strong&gt;
+
+ &lt;code&gt;pacman -S alsa-utils&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Unmute the master channel
+
+ &lt;code&gt;amixer sset Master unmute&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;Screen Backlight&lt;/h3&gt;
+
+&lt;p&gt;Works OTB&lt;/p&gt;
+
+&lt;h3&gt;Keyboard Backlight&lt;/h3&gt;
+
+&lt;p&gt;You can control by echoing values to&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;/sys/devices/platform/applesmc.768/leds/smc::kbd_backlight/brightness&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;echo &lt;/span&gt;40 &amp;gt; /sys/devices/platform/applesmc.768/leds/smc&lt;span class=&quot;se&quot;&gt;\:\:&lt;/span&gt;kbd_backlight/brightness
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;GUI&lt;/h3&gt;
+
+&lt;p&gt;There are lot many options for it, some might prefer living without it, some might go for something light, like &lt;a href=&quot;https://wiki.archlinux.org/index.php/Awesome&quot;&gt;awesome&lt;/a&gt; or &lt;a href=&quot;https://wiki.archlinux.org/index.php/Enlightenment&quot;&gt;enlightenment&lt;/a&gt;. But as of now I’m mentoring a student under &lt;a href=&quot;http://www.google-melange.com/&quot;&gt;GSoC&lt;/a&gt; for a project which is in &lt;a href=&quot;http://www.digikam.org&quot;&gt;digiKam&lt;/a&gt; so I prefered going for &lt;a href=&quot;http://www.kde.org/&quot;&gt;KDE&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;For minimal install, install &lt;strong&gt;kdebase&lt;/strong&gt; for full install of all the basic KDE packages install &lt;strong&gt;kde&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;pacman -S kdebase
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;For launching KDE:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Using &lt;strong&gt;xinitrc&lt;/strong&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Add &lt;code&gt;exec startkde&lt;/code&gt; to &lt;strong&gt;~/.xinitrc&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;After log-in run &lt;code&gt;startx&lt;/code&gt; to launch KDE GUI&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Using KDM
+
+&lt;ul&gt;
+&lt;li&gt;Install &lt;strong&gt;kdm&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Enable it &lt;code&gt;systemctl start kdm.service&lt;/code&gt;, from next start  you would get a GUI asking for your password to login&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3&gt;rEFInd&lt;/h3&gt;
+
+&lt;p&gt;If you find this whole business of holding ‘alt/option’ key for few seconds on system start to choose OS irritation, then you can install &lt;a href=&quot;http://www.rodsbooks.com/refind/&quot;&gt;rEFInd&lt;/a&gt; it would present you with a nice GUI on system start where you can choose which OS to boot.&lt;/p&gt;
+
+&lt;h2&gt;Install Application&lt;/h2&gt;
+
+&lt;p&gt;You can install any package using &lt;strong&gt;pacman&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;pacman -S &amp;lt;package name&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;You can go &lt;a href=&quot;https://wiki.archlinux.org/index.php/List_of_Applications&quot;&gt;here&lt;/a&gt; and check the list of Application which you might wanna use/install.&lt;/p&gt;
+
+&lt;p&gt;Well, so that’s all about it.&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;/posts/2013/06/arch-linux-installation-with-os-x-on-macbook-air-dual-boot/&quot;&gt;Arch Linux Installation with OS X on Macbook Air (Dual Boot)&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on June 27, 2013.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[New Octopress theme- Fabric]]></title>
+ <link rel="alternate" type="text/html" href="/posts/2013/01/new-octopress-theme-fabric/" />
+  <id>/posts/2013/01/new-octopress-theme-fabric</id>
+  <published>2013-01-06T03:50:00+05:30</published>
+  <updated>2013-01-06T03:50:00+05:30</updated>
+  <author>
+    <name>Pankaj Kumar</name>
+    <uri></uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Somehow I got interested in octopress while I was at home during winter vacation. I tried few themes from &lt;a href=&quot;https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes&quot;&gt;octopress wiki&lt;/a&gt; there are some pretty nice ones out there, but just out of curiosity I ended up writing a theme on my own - &lt;a href=&quot;https://github.com/panks/fabric&quot;&gt;Fabric&lt;/a&gt;. This page (not this website) uses this theme, so you can play around with it here without having to install.&lt;/p&gt;
+
+&lt;p&gt;I share some of the installation details and functionality here:&lt;/p&gt;
+
+&lt;h2&gt;Installation&lt;/h2&gt;
+&lt;p&gt;It’s the regular, and you probably won’t even read this section if you have ever played a little with Octopress.
+Go to your Octopress directory, clone my theme and run the rake script to install it, and then ‘rake generate’ to apply it to your blog.
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;octopress
+    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone git://github.com/panks/fabric.git .themes/fabric
+    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;rake install&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;fabric&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;rake generate
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;Disable Ajaxification&lt;/h2&gt;
+&lt;p&gt;Here I tried something new, though the blog is completely static and based on pre-baked files, I thought it would be cool to load the pages(not post) without reloading the entire blog in browser.&lt;/p&gt;
+
+&lt;p&gt;It’s a small script but does the job, also it gives your hash url so you can actually pass the links to others if you want. &lt;/p&gt;
+
+&lt;p&gt;To use it make the &lt;code&gt;list item&lt;/code&gt; of your navigation bar item  with id as ‘ajax’, navigation bar is defined in &lt;code&gt;octopress/.themes/fabric/source/_includes/custom/navigation.html&lt;/code&gt;, for instance:
+&lt;script src=&quot;https://gist.github.com/4464452.js&quot;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;Anyway, some might find it little annoying or uneasy to work with and prefer just plan simple urls and reloading of pages. So to disable it:&lt;/p&gt;
+
+&lt;p&gt;Go to: &lt;code&gt; octopress/.themes/fabric/source/_includes/head.html&lt;/code&gt; and remove the javascript file &lt;strong&gt;ajaxify.js&lt;/strong&gt; I have also commented it in there for easy identification.&lt;/p&gt;
+
+&lt;p&gt;And then reinstall the theme and rebuild your blog with&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;rake install&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;fabric&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;rake generate
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;or you can remove those &lt;code&gt;id=&quot;ajax&quot;&lt;/code&gt; for list items in navigation bar.&lt;/p&gt;
+
+&lt;p&gt;Done!&lt;/p&gt;
+
+&lt;h2&gt;Tapirgo Search&lt;/h2&gt;
+
+&lt;p&gt;This is probably the biggest change which I put into the theme which was not available by default and wasn’t even discussed about in other themes available - &lt;a href=&quot;http://tapirgo.com/&quot;&gt;Tapirgo&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Most of the people using Octopress use google custom search for providing search to their users but I don’t really like it that way,&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;One&lt;/strong&gt; - You have redirect your users to another website in a new tab&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Two&lt;/strong&gt; - Google shows it’s ads which is annoying&lt;/p&gt;
+
+&lt;p&gt;and &lt;strong&gt;Three&lt;/strong&gt; -Google search from it’s cache so your readers won’t get the latest content from your website listed on the search result rather they would get something which google stored at it’s server while crawling your blog, so it might contain some article which you deleted a few days back or might not contain the latest post of yours. Which beats the whole point of searching the blog.
+Taprigo on the other hand gives you a real nice way to search static websites, using your &lt;a href=&quot;http://en.wikipedia.org/wiki/RSS&quot;&gt;RSS&lt;/a&gt; feeds i.e. your atom.xml file, and it’s keeps reading your feeds every 15 mins (well that’s what they claim) and they also provide you with their API using which you can ping the server to reindex your feeds immediately.&lt;/p&gt;
+
+&lt;p&gt;For using is just &lt;a href=&quot;http://tapirgo.com/&quot;&gt;go to tapirgo&lt;/a&gt; and enter the url to your atom.xml file in ‘Your RSS feed’ field and your email in the next field and click ‘go’ and then you would be provided with two tokens, one is public and the other one would be a secret token, you would need only the public token for using it in your Octopress blog.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/tapirgohome.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Now create a field named &lt;code&gt;tapir_token&lt;/code&gt; in your _config.yml file in Octopress directory and assign it’s value as the public token.
+That’s all from your side. Now one can search your blog while being inside your blog and in the real content.&lt;/p&gt;
+
+&lt;p&gt;For some reason if you want to use google search then you can do it this way:&lt;/p&gt;
+
+&lt;p&gt;Go to: &lt;code&gt;octopress/.themes/fabric/source/_includes/custom/navigation.html&lt;/code&gt;
+and &lt;strong&gt;Replace&lt;/strong&gt;
+&lt;script src=&quot;https://gist.github.com/4464380.js&quot;&gt;&lt;/script&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;with&lt;/strong&gt;&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/4464423.js&quot;&gt;&lt;/script&gt;
+
+&lt;h2&gt;Add accounts for social links&lt;/h2&gt;
+&lt;p&gt;It has a real nice social bar in which you can display your github, facebook, twitter, linkedin, googleplus, lastfm, skype and youtube accounts.
+For using it just make a field &lt;strong&gt;sitename_user&lt;/strong&gt; in your ‘_config.yml file and supply your username/id in it.&lt;/p&gt;
+
+&lt;p&gt;For instance for facebook, add &lt;code&gt;facebook_user: yourfacebookusername&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;For some of the services the fields are already present in the _config file.&lt;/p&gt;
+
+&lt;h2&gt; Disable scroll to top button&lt;/h2&gt;
+&lt;p&gt;I have give a scroll to top button, which become visible as the user start scrolling the page and would scroll the top of the page when clicked on it, which slows it’s speed down when reaches the top.&lt;/p&gt;
+
+&lt;p&gt;But there are all sort of people on this planet and for some weird reason from mars few of them might find it annoying so to disable it:&lt;/p&gt;
+
+&lt;p&gt;Go to: &lt;code&gt; octopress/.themes/fabric/source/_layouts/default.html&lt;/code&gt; and remove the following lines as described there.&lt;/p&gt;
+
+&lt;p&gt;And then reinstall the theme and rebuild your blog&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;rake install&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;fabric&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+    &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;rake generate
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2&gt;Image border&lt;/h2&gt;
+&lt;p&gt;Image borders by default are made in such way to give the effect of a real photograph pasted on a surface (I have disabled it for the next image).&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;noborder&quot; src=&quot;/images/posts/imagewithborderex.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;To disable that effect, class your image to ‘noborder’ :&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/image/location/filename.png&quot; class=&quot;noborder&quot; /&gt;&lt;/p&gt;
+
+&lt;h2&gt;Arrow after &#39;Read on&#39;&lt;/h2&gt;
+&lt;p&gt;This is a tiny stuff and someone who has used Octopress for a month of two won’t even need it, but I just felt like mentioning it for the sake of completion.&lt;/p&gt;
+
+&lt;p&gt;When you use &lt;code&gt;&amp;lt;!--more--&amp;gt;&lt;/code&gt; in your posts to show excerpts then there is a ‘Read on’ link after each summary to go the full post and you would notice there would be bold arrow before it and a tiny arrow in front of it. That bold arrow is put by my and the tiny arrow is put by Octopress configuration, so to remove the tiny arrow go to your _config.yml file and search for this line
+    excerpt_link: “Read on &amp;amp; rarr;”  # “Continue reading” link text at the bottom of excerpted articles
+and remove the &lt;code&gt;&amp;amp; rarr;&lt;/code&gt; from it. That’s it.&lt;/p&gt;
+
+&lt;p&gt;There won’t be space between &amp;amp; and r I have given it so that It won’t change to an arrow here.&lt;/p&gt;
+
+&lt;p&gt;Well that’s all, hope you would like this theme. For furthur information or any suggestion feel free to contact me.&lt;/p&gt;
+
+
+  &lt;p&gt;&lt;a href=&quot;/posts/2013/01/new-octopress-theme-fabric/&quot;&gt;New Octopress theme- Fabric&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on January 06, 2013.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[From Wordpress to Octopress]]></title>
+ <link rel="alternate" type="text/html" href="/posts/2012/12/from-wordpress-to-octopress/" />
+  <id>/posts/2012/12/from-wordpress-to-octopress</id>
+  <published>2012-12-24T18:20:00+05:30</published>
+  <updated>2012-12-24T18:20:00+05:30</updated>
+  <author>
+    <name>Pankaj Kumar</name>
+    <uri></uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;center&gt;&lt;img class=&quot;noborder&quot; src=&quot;/images/posts/octopress-logo.png&quot; /&gt;&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;
+I am writing this post about &lt;a href=&quot;http://octopress.org&quot;&gt;Octopress&lt;/a&gt;, and this is my second migration from &lt;a href=&quot;http://wordpress.org&quot;&gt;Wordpress&lt;/a&gt; to Octopress.
+When I moved for the first time it was actually a transition to &lt;a href=&quot;https://github.com/mojombo/jekyll/wiki&quot;&gt;Jekyll&lt;/a&gt; and not Octopress, it was more of a experimentation, I installed it, generated the pages, pushed it and checked, it was all cool but it all seemed a little rough and I didn’t give it enough time to soak into and switched back immediately to WP. But when I came across Octopress, I realized it was a huge improvement on top of jekyll and read few reviews too and it turned out it suits me best for the needs.&lt;/p&gt;
+
+&lt;p&gt;The site you are curretly viewing doesn’t need a server to generate html or maintain database. It consist entirely of pre-baked pages,&lt;!--more--&gt; mean what-you-get is what-is-stored, you can fire it up directly in your browser from hard disk, you carry the entire working blog along with you and deploy it with zero effort anywhere, anytime that’s the coolest things about Octopress, it runs your blog on flat files as compared to Wordpess (and million other blogging tools/CMS) which stores you posts/contents in
+databases. &lt;/p&gt;
+
+&lt;p&gt;Now that doesn’t mean Wordpress is not cool, I have used it for quite a long time, but just that I think it’s intended toward a different set of users, and I feel maitaining such a huge CMS with a databse and it’s plugins and keeping them up-to-date is a little too much extra homework for a(my) blog, it just feels unnatural for a simple blog. While with Octopress the fact that I work with my blog like an application, I can work on it, commit it, make a draft and when it’s in presentable form then deploy it with one command, and can tar the entire(working) blog and carry it in my thumb drive and launch it off anywhere and it needs minimum requirement for hosting (just a bare minimum computer running all the time), give a real comfy feeling. Since it’s static there is no native support for comments but &lt;a href=&quot;http://disqus.com&quot;&gt;disqus&lt;/a&gt; rocks!&lt;/p&gt;
+
+&lt;p&gt;and while talking of being comfy, there is extra bonus which comes with Octopress, since html is pre-generated and no database is required you can host it for free (free as in freedom and also free as in free beer ;) ) on &lt;a href=&quot;http://pages.github.com&quot;&gt;Github Pages&lt;/a&gt; or on &lt;a href=&quot;http://heroku.com&quot;&gt;Heroku&lt;/a&gt;, no bandwidth limit or anything, hurray! 
+and of course you can deploy it if you have your own web hosting, &lt;/p&gt;
+
+&lt;h2&gt;Goodbye! Wordpress&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/images/posts/Exit-Signboard2.jpg&quot; alt=&quot;Goodbye Wordpess&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You can use &lt;a href=&quot;https://github.com/thomasf/exitwp/&quot;&gt;exitwp&lt;/a&gt; to extract the posts from your Wordpess blog which would convert your XML to markdown format, which can be used with Octopress directly. You can extract everything apart from comments, if you used disqus or &lt;a href=&quot;http://livefyre.com&quot;&gt;livefyre&lt;/a&gt; or some similar service then transferring comments shouldn’t be a problem at all, else you might have to just say good-bye to them.&lt;/p&gt;
+
+&lt;h2&gt;Setting it up&lt;/h2&gt;
+&lt;center&gt;&lt;img class=&quot;bd&quot; title=&quot;Let&#39;s go back to Static&quot; alt=&quot;Let&#39;s go back to static&quot; src=&quot;/images/posts/fromwptoop.jpg&quot; /&gt;&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;
+Setting up Octopress is a piece of cake, if you are developer of any sort then it would take not more than 20 mins to get it up and running on your Github. Just run a little rake script and get the job done.&lt;/p&gt;
+
+&lt;p&gt;I’ll give a short pathway to get it up and running:&lt;/p&gt;
+
+&lt;p&gt;Fork the Octopress from here&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;git clone git://github.com/imathis/octopress.git octopress
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Install ruby(if not already installed)
+You can use Rbenv or RVM to install ruby, I personally prefer the RVM way&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;curl -L https://get.rvm.io &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt; bash -s stable --ruby
+rvm install 1.9.3
+rvm use 1.9.3
+rvm rubygems latest
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Install dependencies for Octopress&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;// &lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;into octopress directory
+gem install bundler
+bundle install
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This would complete the setup process, now you can add new posts with&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;rake new_post&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Post title&amp;#39;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;this would generate a markdown file in /source/_posts/Post-title.markdown
+you can add content to it, and install default theme and generate static html by running&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;rake install
+rake generate
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;now if you want to push your blog to Github make a repository USERNAME.github.com in your Github account
+and run&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;rake setup_github_pages
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;give the details and run&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;rake deploy
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;to push it to your github repository, and open USERNAME.github.com and voila!&lt;/p&gt;
+
+&lt;h2&gt;CNAME&lt;/h2&gt;
+&lt;p&gt;Not only this, even if you want to use your custom domain for your blog, it’s just two step away. &lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt; Make a file &lt;strong&gt;CNAME&lt;/strong&gt; in site root, with your domain name as content i.e. mydomain.com&lt;/li&gt;
+&lt;li&gt; Make a A record in your domain settings pointing to Github which is &lt;code&gt;204.232.175.78&lt;/code&gt; (at the time of writing, check &lt;a href=&quot;https://help.github.com/articles/setting-up-a-custom-domain-with-pages&quot;&gt;here&lt;/a&gt; for latest details).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;and one thing which you would start feeling and enjoying just as you start using Octopress is you would have a complete control over your blog, you decide it entirely, how it looks, what it does and which code goes where. It’s based on a very powerful blog engine, Jekyll. &lt;/p&gt;
+
+&lt;h2&gt;Finally&lt;/h2&gt;
+&lt;p&gt;Here is the final landing:
+&amp;lt;ul class=&quot;reasons&quot;&amp;gt;&lt;/p&gt;
+&lt;li&gt; Static pages, no need of PHP server for hosting&lt;/li&gt;
+&lt;li&gt; No database, no hassle of backing it up etc, you blog is with you all the time &lt;/li&gt;
+&lt;li&gt; Posting just became more efficient and enjoyable, fire up the terminal and open your favorite editor and enjoy! &lt;/li&gt;
+&lt;li&gt; HTML files are great for caching &lt;/li&gt;
+&lt;li&gt; Free hosting and unlimited bandwidth &lt;/li&gt;
+&lt;li&gt; Ultimate control over my blog&lt;/li&gt;
+
+&lt;p&gt;Blogging is just a breeze now. I love you Octopress!&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;/posts/2012/12/from-wordpress-to-octopress/&quot;&gt;From Wordpress to Octopress&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on December 24, 2012.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[The Richard Feynman way of learning better and faster]]></title>
+ <link rel="alternate" type="text/html" href="/posts/2012/12/the-richard-feynman-way-of-learning-better-and-faster/" />
+  <id>/posts/2012/12/the-richard-feynman-way-of-learning-better-and-faster</id>
+  <published>2012-12-13T05:10:00+05:30</published>
+  <updated>2012-12-13T05:10:00+05:30</updated>
+  <author>
+    <name>Pankaj Kumar</name>
+    <uri></uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;list&gt;
+&lt;li&gt;Step 1. &lt;strong&gt;Choose the concept you want to understand&lt;/strong&gt;&lt;br /&gt;&lt;/li&gt;
+Take a blank piece of paper and write that concept at the top of the page.
+ 
+&lt;li&gt;Step 2. &lt;strong&gt;Pretend you’re teaching the idea to someone else&lt;/strong&gt;&lt;br /&gt;&lt;/li&gt;
+Write out an explanation of the topic, as if you were trying to teach it to a new student. When you explain the idea this way you get a better idea of what you understand and where you might have some gaps.
+&lt;!--more--&gt;
+ 
+&lt;li&gt;Step 3. &lt;strong&gt;If you get stuck, go back to the book&lt;/strong&gt;&lt;br /&gt;
+Whenever you get stuck, go back to the source material and re-learn that part of the material until you get it enough that you can explain it on paper.
+ 
+&lt;li&gt;Step 4. &lt;strong&gt;Simplify your language&lt;/strong&gt;&lt;br /&gt;
+The goal is to use your words, not the words of the source material. If your explanation is wordy or confusing, that’s an indication that you might not understand the idea as well as you thought – try to simplify the language or create an analogy to better understand it.
+
+&lt;center&gt;&lt;br /&gt;
+&lt;iframe class=&quot;bd&quot; width=&quot;640&quot; height=&quot;360&quot; src=&quot;http://www.youtube.com/embed/FrNqSLPaZLc?rel=0&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+&lt;/center&gt;
+&lt;br /&gt;
+Notes: &lt;a href=&quot;http://www.scotthyoung.com/mit/801-notes.pdf&quot;&gt;http://www.scotthyoung.com/mit/801-notes.pdf&lt;/a&gt;
+
+
+&lt;/li&gt;&lt;/li&gt;&lt;/list&gt;
+
+  &lt;p&gt;&lt;a href=&quot;/posts/2012/12/the-richard-feynman-way-of-learning-better-and-faster/&quot;&gt;The Richard Feynman way of learning better and faster&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on December 13, 2012.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Search engines for deep web]]></title>
+ <link rel="alternate" type="text/html" href="/posts/2012/08/search-engines-for-deep-web/" />
+  <id>/posts/2012/08/search-engines-for-deep-web</id>
+  <published>2012-08-12T14:36:00+05:30</published>
+  <updated>2012-08-12T14:36:00+05:30</updated>
+  <author>
+    <name>Pankaj Kumar</name>
+    <uri></uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;br /&gt;
+&lt;img src=&quot;/images/posts/Deep-Web.jpg&quot; alt=&quot;Deep Web&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;The Deep Web (also called the Deepnet, the Invisible Web, the Undernet or the hidden Web) is World Wide Web content that is not part of the Surface Web, which is indexed by standard search engines. It represents a gargantuan part of the internet which is not accessible through regular searches via google or other search engines.&lt;/p&gt;
+
+&lt;p&gt;Searching on the Internet today can be compared to dragging a net across the surface of the ocean. While a great deal may be caught in the net, there is still a wealth of information that is deep, and therefore, missed. The reason is simple: Most of the Web’s information is buried far down on dynamically generated sites, and standard search engines never find it.&lt;/p&gt;
+&lt;!--more--&gt;
+
+&lt;p&gt;So How do we access or search info from deep web? Well there are few special search engines available which can give you some glimps of it, I would list a few of them below:&lt;/p&gt;
+
+&lt;list&gt;
+&lt;li&gt;&lt;a href=&quot;http://aip.completeplanet.com/&quot;&gt;Complete planet&lt;/a&gt; - General purpose for dynamic databases&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://vlib.org/&quot;&gt;WWW virtual library&lt;/a&gt; - The oldest catalog on the web! by Tim Berners-Lee, the creator of the web&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://infomine.ucr.edu/&quot;&gt;Infomine&lt;/a&gt; - Built by a pool of libraries in US, mostly academic purpose&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.infoplease.com/index.html&quot;&gt;InfoPlease&lt;/a&gt; - For encyclopedias, atlas, biographies etc&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.deeppeep.org/&quot;&gt;DeepPeep&lt;/a&gt; - Mostly for fetching databases and web services info&lt;/li&gt;
+&lt;li&gt;&lt;del&gt;&lt;a href=&quot;http://www.incywincy.com/&quot;&gt;IncyWincy&lt;/a&gt; - It’s a serching for search engines meta-data&lt;/del&gt; Closed&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.deepwebtech.com/&quot;&gt;DeepWeb&lt;/a&gt; - Covers Science, Medicine and Business and have 5 sub-search engines&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.scirus.com/srsapp/&quot;&gt;Scirus&lt;/a&gt; - More inclined toward scientific info&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://www.techxtra.ac.uk/index.html&quot;&gt;TechXtra&lt;/a&gt; - Mostly for mathematics and computing needs&lt;/li&gt;
+&lt;/list&gt;
+
+  &lt;p&gt;&lt;a href=&quot;/posts/2012/08/search-engines-for-deep-web/&quot;&gt;Search engines for deep web&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on August 12, 2012.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Add post to your wordpress Blog using python script]]></title>
+ <link rel="alternate" type="text/html" href="/posts/2012/06/add-post-to-your-wordpress-blog-using-python-script/" />
+  <id>/posts/2012/06/add-post-to-your-wordpress-blog-using-python-script</id>
+  <published>2012-06-12T08:00:00+05:30</published>
+  <updated>2012-06-12T08:00:00+05:30</updated>
+  <author>
+    <name>Pankaj Kumar</name>
+    <uri></uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;br /&gt;
+&lt;img src=&quot;/images/posts/python-logo.png&quot; alt=&quot;Python Logo&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I was searching for some way(read script) to automatically transfer/add post to my WordPress blog from another site. The main mission was to transfer around 500 posts to wordpress and no way I was going to do it manually.
+On googling a little bit I got to know wordpress has it’s own api which uses xlrpc interface for communicating to blog and I can use that to automate my job. Below is the script I used. I just set the vars and loops and started it in terminal and voila! within ~30 min the new wordpress was up and running proudly with 500 new posts.
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;find-the-script-below&quot;&gt;Find the script below.&lt;/h3&gt;
+&lt;p&gt;It uses xmlpclib, read about it &lt;a href=&quot;http://codex.wordpress.org/XML-RPC_Support&quot;&gt;here.&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;for-using-it-you-need-to&quot;&gt;For using it you need to:&lt;/h3&gt;
+&lt;ol&gt;
+  &lt;li&gt;Enable XML-RPC functionality in your blog: go to &lt;a title=&quot;Settings Writing Screen&quot; href=&quot;http://codex.wordpress.org/Settings_Writing_Screen#Remote_Publishing&quot;&gt;Settings &amp;gt; Writing &amp;gt; Remote Publishing&lt;/a&gt; and check the checkbox.&lt;/li&gt;
+  &lt;li&gt;Install &lt;code&gt;python&lt;/code&gt; and &lt;a href=&quot;http://sourceforge.net/projects/py-xmlrpc/&quot;&gt;xmlpc&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;You are all set to go.
+You may also add custom date and time to your posts.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;python&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;datetime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;xmlrpclib&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt; 3&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wp_url&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;http://www.yourblog.com/xmlrpc.php&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 4&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wp_username&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;USERNAME&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 5&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wp_password&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;PASSWD&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 6&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wp_blogid&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 7&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;status_draft&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 8&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;status_published&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt; 9&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xmlrpclib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ServerProxy&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wp_url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;11&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;12&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Title with spaces&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;13&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Body with lots of content&amp;quot;&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;date_created&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;xmlrpclib&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DateTime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;datetime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;datetime&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;strptime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;2011-10-20 21:08&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;%Y-%m-&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%d&lt;/span&gt;&lt;span class=&quot;s&quot;&gt; %H:%M&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;15&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;categories&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;category here&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;16&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tags&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;sometag&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;othertag&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;17&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;title&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;description&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;dateCreated&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;date_created&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;categories&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;categories&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;mt_keywords&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tags&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;18&lt;/span&gt; 
+&lt;span class=&quot;lineno&quot;&gt;19&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;post_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;server&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;metaWeblog&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;newPost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;wp_blogid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wp_username&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wp_password&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;status_published&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+  &lt;p&gt;&lt;a href=&quot;/posts/2012/06/add-post-to-your-wordpress-blog-using-python-script/&quot;&gt;Add post to your wordpress Blog using python script&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on June 12, 2012.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Deploy your cloud apps for free]]></title>
+ <link rel="alternate" type="text/html" href="/posts/2012/05/deploy-your-cloud-apps-for-free/" />
+  <id>/posts/2012/05/deploy-your-cloud-apps-for-free</id>
+  <published>2012-05-31T07:26:00+05:30</published>
+  <updated>2012-05-31T07:26:00+05:30</updated>
+  <author>
+    <name>Pankaj Kumar</name>
+    <uri></uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;If you want to host you webapp somewhere and test/present it for 
+free, you can use the free service given by Heroku or Openshift by Red 
+Hat.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Heroku&lt;/strong&gt; – &lt;a href=&quot;http://www.heroku.com/&quot;&gt;www.heroku.com&lt;/a&gt; – is a 
+good place to get a free web host. It supports most of the web 
+programming languages like Ruby, Node.js, Clojure, Java, Python, and 
+Scala. If you need database you get a 5 MB database for free. &lt;/p&gt;
+
+&lt;p&gt;You just need to push your app to your server via git to deploy it.
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;You can get started with heroku here – &lt;a href=&quot;http://devcenter.heroku.com/articles/quickstart&quot;&gt;http://devcenter.heroku.com/articles/quickstart&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;bd&quot; src=&quot;/images/posts/250px-OpenShift-LogoType.svg.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You would also learn how to use git (a version control software) to be able to deploy your application on heroku. For the first timers, it would take some time to get your application running on heroku. Once you are done, you will have a &lt;a href=&quot;&quot;&gt;http://&amp;lt;some_arbitrary_name_if_you_have_not_specified&amp;gt;.herokuapp.com&lt;/a&gt; kind of url to access your application.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;OpenShift&lt;/strong&gt; – &lt;a href=&quot;http://openshift.redhat.com/&quot;&gt;www.openshift.redhat.com&lt;/a&gt; is a similar (free) service . Choose the express option at &lt;a href=&quot;https://openshift.redhat.com/app/platform&quot;&gt;https://openshift.redhat.com/app/platform&lt;/a&gt; to get started. It follows similar strategy as that of heroku.&lt;/p&gt;
+
+
+  &lt;p&gt;&lt;a href=&quot;/posts/2012/05/deploy-your-cloud-apps-for-free/&quot;&gt;Deploy your cloud apps for free&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on May 31, 2012.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Host your blog on Github for free]]></title>
+ <link rel="alternate" type="text/html" href="/posts/2012/04/host-your-blog-on-github-for-free/" />
+  <id>/posts/2012/04/host-your-blog-on-github-for-free</id>
+  <published>2012-04-30T07:20:00+05:30</published>
+  <updated>2012-04-30T07:20:00+05:30</updated>
+  <author>
+    <name>Pankaj Kumar</name>
+    <uri></uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;center&gt;&lt;img class=&quot;noborder&quot; src=&quot;/images/posts/githubicon.png&quot; /&gt;&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;
+I recently came across this article about github pages.&lt;/p&gt;
+
+&lt;p&gt;If you make a repo with name same as your &lt;strong&gt;username&lt;/strong&gt; then the content of the repo is hosted as subdomain &lt;strong&gt;http://YOURUSERNAME.github.com&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Read here: &lt;a href=&quot;http://help.github.com/pages/&quot;&gt;http://help.github.com/pages/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;So now you can host your blog at Github sub-domain for free and update via Git. Cool! B-)
+&lt;!--more--&gt;
+But as Github will not really provide you a server running php, mysql, etc so the limitation is it has to be static, but no worries, &lt;a href=&quot;http://jekyllbootstrap.com/&quot;&gt;Jekyll-Bootstrap&lt;/a&gt; comes to rescue here. It’s a static site generator which would generate the html for you and then you can push it to you blog via git. Bingo!&lt;/p&gt;
+
+&lt;h2 id=&quot;edit&quot;&gt;EDIT&lt;/h2&gt;
+&lt;p&gt;They changed the domain for your webpages from &lt;strong&gt;http://YOURUSERNAME.github.com&lt;/strong&gt; to &lt;strong&gt;http://YOURUSERNAME.github.io&lt;/strong&gt; so you will have to create the repository with the same name.&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;/posts/2012/04/host-your-blog-on-github-for-free/&quot;&gt;Host your blog on Github for free&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on April 30, 2012.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Expect- talk with programs using scripts]]></title>
+ <link rel="alternate" type="text/html" href="/posts/2011/12/expect-talk-with-programs-using-scripts/" />
+  <id>/posts/2011/12/expect-talk-with-programs-using-scripts</id>
+  <published>2011-12-22T07:07:00+05:30</published>
+  <updated>2011-12-22T07:07:00+05:30</updated>
+  <author>
+    <name>Pankaj Kumar</name>
+    <uri></uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;“OK! Now I can’t bear it anymore” - The condition after our endsems got over, as Insti bandwidth usages was on peak, one had no work other than running behind monkey (yeah we do have monkeys in our campus, all around us, so blessed we are, aren’t we?) to scare them to death or stick your bum to chair and do some time pass on internet.&lt;/p&gt;
+
+&lt;p&gt;But they say there is solution to every problem, here was it.&lt;!--more--&gt; We had access to our departmental network, which uses different proxy server, and since the LAN is common throughout the Insti we could connect to it, to get a little relief in internet speed, obviously everyone could do that, but you don’t expect students from Bio-tech people to type commands in terminal(they are already happy enough by looking at windows animation), until that’s the only option to save the human race.&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;noborder&quot; src=&quot;/images/posts/batmantux.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;But for lazzy bum like me it was painful to type the command to ssh to the departmental computers every time I login to my laptop. So I wrote a script to do that, obviously auto-run on system start.
+But there was a catch, we had to input our login password while connecting to departmental computers and there was no way in linux terminal to supply the password automatically on request :(&lt;/p&gt;
+
+&lt;p&gt;When will google come to work?! I googled it and got to know about Expect, it is a toolkit for automating interactive programs, such as TELNET and FTP, written by Don Libes. It knows what can be expected from a program and what the correct response would be.
+You can this page to get an idea of how expect works, it contains few basic examples: &lt;a href=&quot;http://www.thegeekstuff.com/2010/10/expect-examples/&quot;&gt;http://www.thegeekstuff.com/2010/10/expect-examples/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;For more info you can click at: &lt;a href=&quot;http://oreilly.com/catalog/expect/chapter/ch03.html&quot;&gt;http://oreilly.com/catalog/expect/chapter/ch03.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;edit&quot;&gt;Edit&lt;/h2&gt;
+&lt;p&gt;Instead of running the script of system startup, you can ask network manager to do it for you, that way even if the network goes off while you are working and comes back again, you wold be reconnected. You can put your script in &lt;strong&gt;/etc/network/if-up.d&lt;/strong&gt; on debian based distros and in &lt;strong&gt;/etc/NetworkManager/dispatcher.d/&lt;/strong&gt; in fedora/redhat based distros, that would be executed when the network connects. If you plan to put more than one script you can specify the sequence by naming them
+starting with a number between 1 and 99, they would be executed in ascending order, ex. &lt;code&gt;5-myscript.sh&lt;/code&gt;, default is 50.&lt;/p&gt;
+
+
+  &lt;p&gt;&lt;a href=&quot;/posts/2011/12/expect-talk-with-programs-using-scripts/&quot;&gt;Expect- talk with programs using scripts&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on December 22, 2011.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Git basic commands]]></title>
+ <link rel="alternate" type="text/html" href="/posts/2011/12/git-basic-commands/" />
+  <id>/posts/2011/12/git-basic-commands</id>
+  <published>2011-12-11T07:11:00+05:30</published>
+  <updated>2011-12-11T07:11:00+05:30</updated>
+  <author>
+    <name>Pankaj Kumar</name>
+    <uri></uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;noborder&quot; src=&quot;/images/posts/github-logo.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;While I was working during my winter break at home I 
+had to use git a lot for debugging KDE apps. So, I thought of writing 
+this article. It will help newbies a lot to just read this single page 
+and get started with. No need to read that GIT book or tutorial if you 
+are short of time and you need only basic stuff for your job.&lt;/p&gt;
+
+&lt;p&gt;So first of all,&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What is Git?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Git is a distributed version control system, 
+which is designed by the same person who made 
+the Linux kernel, Linus Torvalds. Written completely in C.
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What is Version Control?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;When editing, you can &lt;em&gt;Save As…&lt;/em&gt; a 
+different file, or copy the file somewhere first before saving if you 
+want to savour old versions. You can compress them too to save space. 
+This is a primitive and labour-intensive form of version control. 
+Computer games improved on this long ago, many of them providing 
+multiple automatically timestamped save slots.&lt;/p&gt;
+
+&lt;p&gt;Let’s make the problem slightly tougher. Say you have a 
+bunch of files that go together, such as source code for a project, or 
+files for a website. Now if you want to keep an old version you have to 
+archive a whole directory. Keeping many versions around by hand is 
+inconvenient, and quickly becomes expensive.&lt;/p&gt;
+
+&lt;p&gt;With some computer games, a saved game really does 
+consist of a directory full of files. These games hide this detail from 
+the player and present a convenient interface to manage different 
+versions of this directory.&lt;/p&gt;
+
+&lt;p&gt;Version control systems are no different. They all 
+have nice interfaces to manage a directory of stuff. You can save the 
+state of the directory every so often, and you can load any one of the 
+saved states later on. Unlike most computer games, they’re usually smart
+ about conserving space. Typically, only a few files change from version
+ to version, and not by much. Storing the differences instead of entire 
+new copies saves room.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What is Distributed Control System?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Now lets change the situation a little bit. Imagine a 
+very difficult computer game. So difficult to finish that many 
+experienced gamers all over the world decide to team up and share their 
+saved games to try to beat it. Speedruns are real-life examples: players
+ specializing in different levels of the same game collaborate to 
+produce amazing results.&lt;/p&gt;
+
+&lt;p&gt;How would you set up a system so they can get at each other’s saves easily? And upload new ones?&lt;/p&gt;
+
+&lt;p&gt;In the old days, every project used centralized 
+version control. A server somewhere held all the saved games. Nobody 
+else did. Every player kept at most a few saved games on their machine. 
+When a player wanted to make progress, they’d download the latest save 
+from the main server, play a while, save and upload back to the server 
+for everyone else to use.&lt;/p&gt;
+
+&lt;p&gt;What if a player wanted to get an older saved game for
+ some reason? Maybe the current saved game is in an unwinnable state 
+because somebody forgot to pick up an object back in level three, and 
+they want to find the latest saved game where the game can still be 
+completed. Or maybe they want to compare two older saved games to see 
+how much work a particular player did.&lt;/p&gt;
+
+&lt;p&gt;There could be many reasons to want to see an older 
+revision, but the outcome is the same. They have to ask the central 
+server for that old saved game. The more saved games they want, the more
+ they need to communicate.&lt;/p&gt;
+
+&lt;p&gt;The new generation of version control systems, of 
+which Git is a member, are known as distributed systems, and can be 
+thought of as a generalization of centralized systems. When players 
+download from the main server they get every saved game, not just the 
+latest one. It’s as if they’re mirroring the central server.
+This initial cloning operation can be expensive, especially if there’s a
+ long history, but it pays off in the long run. One immediate benefit is
+ that when an old save is desired for any reason, communication with the
+ central server is unnecessary.So, that’s all about Git and how it 
+works. Now lets get our hands dirty..&lt;/p&gt;
+
+&lt;h2&gt;Prerequisite&lt;/h2&gt;
+&lt;p&gt;1) You need a computer ;), with preferably Linux (any flavor) installed on it. (This post does not deal with &lt;a title=&quot;Git for windows&quot; href=&quot;http://code.google.com/p/msysgit/&quot;&gt;Windows&lt;/a&gt;, though you may use the commands given here without any modifications (probably!)).&lt;/p&gt;
+
+&lt;p&gt;2) You need Git.&lt;/p&gt;
+
+&lt;p&gt;on Fedora distribution, you may install git using the following command&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo yum install git
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;On Ubuntu distribution, you may install git using the following command&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo apt-get install git
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;sudo apt-get install git-core
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;For other methods and building from source check out &lt;a title=&quot;Git dowloads&quot; href=&quot;http://git.or.cz/#download&quot;&gt;this page&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;3) You need some project which you are developing (or would be 
+developing)  . The project’s language could be anything .. C, C++, 
+D, Python, Perl, HTML, JavaScript, plain text files … you got the idea 
+right?&lt;/p&gt;
+
+&lt;h2&gt;Let the show begin&lt;/h2&gt;
+&lt;h3&gt;Command 1 : Initializing an empty git repository.&lt;/h3&gt;
+&lt;p&gt;Before you can start using the power of git you need to create an 
+empty repository and tell git which files to track. The first command 
+that I’m presenting initializes an empty git repository.&lt;/p&gt;
+
+&lt;p&gt;Before executing the command you need to be at base folder of you 
+project. For example if you have all the source code for you project 
+stored here &lt;strong&gt;/home/panks/SourceCode/myProject&lt;/strong&gt;, (We’ll call this folder as the &lt;strong&gt;base folder &lt;/strong&gt;for ease of discussion), move there first. Now execute the following command once you are in the base folder.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git init
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This will create an empty repository in the current directory (the base folder).&lt;/p&gt;
+
+&lt;p&gt;For every project that you want to track using git, go to its base 
+folder and issue this command first and then the next 2 commands 
+presented below.&lt;/p&gt;
+
+&lt;h3&gt;Command 2 : Adding files to git repository.&lt;/h3&gt;
+&lt;p&gt;The next step is to add files to your git repository, essentially 
+telling git that these are the files we want to keep track of. Execute 
+the following command from the base folder.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git add .
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This will add all the files from the current folder and sub-folders recursively to the git repository.&lt;/p&gt;
+
+&lt;h3&gt;Command 3 : The commit command.&lt;/h3&gt;
+&lt;p&gt;This is one command you’ll be using quite often.&lt;/p&gt;
+
+&lt;p&gt;the above command adds the files but does not commit the changes to 
+the git repository. So you need to issue the following command to make 
+the changes final.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git commit -a
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This will open a text editor (probably vi) where you can add some 
+comments about this commit. If you prefer not to use the text editor, 
+you can specify the commit message from the command line it self, just 
+use the following format instead of the above one.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git commit -a -m &lt;span class=&quot;s2&quot;&gt;&amp;quot;Initial import&amp;quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The -m switch is used to specify the commit message. In our case the 
+commit message is “Initial import”. You can put anything between the 
+quotes for your message.&lt;/p&gt;
+
+&lt;h2&gt;You are ‘all’ ready!&lt;/h2&gt;
+&lt;p&gt;Now open your favorite text editor and start coding. When you feel 
+you have accomplished something or you just want to save the current 
+state of your source code issue the git-commit command as described 
+above. The commit command will create a new checkpoint and save the 
+current status of your source code.&lt;/p&gt;
+
+&lt;p&gt;Git (like any other version control system) saves all the commits you
+ have done to your source code repository. This enables you to go back 
+and forth between commits and inspect the changes.&lt;/p&gt;
+
+&lt;p&gt;Now let’s move forward and learn a few more commands.&lt;/p&gt;
+
+&lt;h3&gt;Command 4 : Viewing the commit log.&lt;/h3&gt;
+&lt;p&gt;You can view all the commits you have done till now using the following command&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git log
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This command shows the commit history with the&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Unique commit hash&lt;/li&gt;
+&lt;li&gt;Name and email of the person who performed the commit&lt;/li&gt;
+&lt;li&gt;Date and time of commit&lt;/li&gt;
+&lt;li&gt;The commit message&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Of all these, the first item, the unique commit identifier, the SHA1 
+hash is of importance to us. This hash will be used with some of the 
+commands listed next, and is used with a plethora of other git commands,
+ not listed here&lt;/p&gt;
+
+&lt;h3&gt;Command 5 : Checking the current status.&lt;/h3&gt;
+&lt;p&gt;While coding, you may want to see what all files have changed, before
+ you do a commit to store them in the git repository. This command helps
+ you achieve that.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git status
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The above command will list all files that have changed since your last commit.&lt;/p&gt;
+
+&lt;h3&gt;Command 6 : Finding the difference between commits.&lt;/h3&gt;
+&lt;p&gt;Apart from just viewing files that have changed, you may be interested in viewing the actual differences in the source code.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git diff
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The above command will show a difference ( a diff ) with respect to your last commit and current changes.&lt;/p&gt;
+
+&lt;p&gt;The diff command can actually be used to compare difference between any commits&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;To view difference between a previous commit and current changes.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git diff &amp;lt;em&amp;gt;commit_hash&amp;lt;/em&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;here the &lt;em&gt;commit_hash&lt;/em&gt; is the first eight characters (hex 
+digits) of commit hash as shown in the commit log by the git-log 
+command. Yes! you need not specify the full hash, just the first eight 
+digits are good enough.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;To view differences between two previous commits.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git diff &amp;lt;em&amp;gt;commit_hash_1&amp;lt;/em&amp;gt; &amp;lt;em&amp;gt;commit_hash_2&amp;lt;/em&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This command will display differences between the two commits identified by the &lt;em&gt;commit_hash_1&lt;/em&gt; and &lt;em&gt;commit_hash_2.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h3&gt;Command 7 : Creating branches!&lt;/h3&gt;
+&lt;p&gt;Don’t be scared by the word “branching”, specially if you never dealt
+ with them. Branches are easy to play with and are very useful.&lt;/p&gt;
+
+&lt;p&gt;Before I show you the command a bit more discussion about branches.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;- You can view branches as being diversion from the main linear commit tree.&lt;/li&gt;
+&lt;li&gt;- All branches stem out from the &lt;strong&gt;master branch&lt;/strong&gt;, the name given to the main trunk.&lt;/li&gt;
+&lt;li&gt;- Every branch has it’s own commit log.&lt;/li&gt;
+&lt;li&gt;- You can have different code in same files across difference 
+branches. (This is the main feature of branching). Actually git goes 
+even further and allows you to have not only different content in files 
+across branches but even different sets of files across different 
+branches.&lt;/li&gt;
+&lt;li&gt;- At one point of time, you can be sitting only on one branch. What 
+this means is that, the source code from the current branch will be the 
+effective one, the one to which you would be making changes.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Why use branches?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Suppose you have an almost stable source code and you are to release 
+the product in a month or in a week or two. You also have plans to 
+include another great feature into your code, but are afraid it might 
+break your code and your release plans may go hay-wire.&lt;/p&gt;
+
+&lt;p&gt;This is where branches come into picture. Just create an experimental
+ branch from you main stable trunk ( the one you’ve been working on up 
+till now is the main trunk, the &lt;strong&gt;master&lt;/strong&gt; branch). After 
+you have created the experimental branch, you can continue fixing bugs 
+and polishing the code on the main, i.e. the master branch. Meanwhile 
+you can also continue working on the experimental branch without 
+affecting a line of code on the master branch.&lt;/p&gt;
+
+&lt;p&gt;In the end, if you find that the experimental feature is working good
+ enough, merge it into the master branch and release your product. If 
+the experimental feature didn’t quite work out, you can still release 
+the product from the master branch. The experimental branch is still 
+there so you can continue working on it till it gets stable.&lt;/p&gt;
+
+&lt;p&gt;This is one scenario (and the most often reason, though not the only one), to create branches.&lt;/p&gt;
+
+&lt;p&gt;Okay now, back to commands . Issue the following command when you want to create a branch.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Creating a branch&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git branch &amp;lt;em&amp;gt;branch_name&amp;lt;/em&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;em&gt;branch_name &lt;/em&gt;could be anything that you wish, for example:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git branch &amp;lt;strong&amp;gt;experimental_feature &amp;lt;/strong&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Branching a branch or “I want more branches”.
+&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;You can create as many branches from inside any branch you want, creating a very dense tree if you like.&lt;/p&gt;
+
+&lt;p&gt;Just move inside (check-out that branch, see command 8 below) and issue the branch creation command.&lt;/p&gt;
+
+&lt;h3&gt;Command 8 : Moving to a branch and listing all branches&lt;/h3&gt;
+&lt;p&gt;Once you have created the branch move to it by issuing the command listed below. &lt;strong&gt;Always&lt;/strong&gt; Make sure you do a commit before you issue this command or else changes will move across branches. &lt;em&gt;Make this a habit!&lt;/em&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git checkout branch_name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Here the branch name is the branch where you want to move. Once 
+checked-out, you can view staus, log, diff etc, using the commands 
+presented earlier.&lt;/p&gt;
+
+&lt;p&gt;To go back to the &lt;strong&gt;master&lt;/strong&gt; branch (the main trunk) issue the following command. (Again make sure you had issued the commit command)&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git checkout master
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Listing all branches&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Issue the following command to see all available branches in the current repository.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git branch
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;Command 9 : Merging two branches&lt;/h3&gt;
+&lt;p&gt;Move to (checkout) the branch with which you want the merge to happen and issue the following command.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git merge branch_name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This will merge the branch branch_name with the current branch.&lt;/p&gt;
+
+&lt;p&gt;For example if you want to merger the “experimental_feature” branch with the master branch, issue the following commands&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git checkout master
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git merge experimental_feature
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Git will notify you with any conflicts it cannot resolve automatically (if any). You can then resolve the conflicts manually.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Deleting a branch&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;After the merge is done you can delete the experimental branch if you wish by issuing the command&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git branch -d experimental_branch
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The above command will only delete the branch if it is fully merged 
+with the current branch’s HEAD. HEAD is the current position in your 
+branch, the latest commit.&lt;/p&gt;
+
+&lt;h3&gt;Command 10 : Deleting stuff from the repository.&lt;/h3&gt;
+&lt;p&gt;Issue the following command if you do not want git to keep track of a
+ file or folder and (this is the opposite of the git-add command). The 
+file stays in the working directory, on the disk.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git rm --cached path/to/the/folder_or_file
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;em&gt;git-rm&lt;/em&gt; command removes the files from the repository for current HEAD &lt;em&gt;only&lt;/em&gt;; previous revisions/commits will still have the file.&lt;/p&gt;
+
+&lt;h2&gt;That’s it, you’re done!&lt;/h2&gt;
+&lt;p&gt;Before I leave you a few more command/features that may interest you, but are not totally necessary as of now.&lt;/p&gt;
+
+&lt;h3&gt;A graphical repository viewer&lt;/h3&gt;
+&lt;p&gt;To invoke a graphical repository viewer, invoke the following command&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;gitk
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3&gt;Git – Graphical user interface&lt;/h3&gt;
+&lt;p&gt;For those who prefer GUI, you can install a graphical front end to git.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;On Fedora&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;yum install git-gui
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;On Ubuntu&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;apt-get install git-gui
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Run the gui by issuing the following command&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git-gui
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+
+  &lt;p&gt;&lt;a href=&quot;/posts/2011/12/git-basic-commands/&quot;&gt;Git basic commands&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on December 11, 2011.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Cron job to schedule your jobs]]></title>
+ <link rel="alternate" type="text/html" href="/posts/2011/11/cron-job-to-schedule-your-jobs/" />
+  <id>/posts/2011/11/cron-job-to-schedule-your-jobs</id>
+  <published>2011-11-15T08:20:00+05:30</published>
+  <updated>2011-11-15T08:20:00+05:30</updated>
+  <author>
+    <name>Pankaj Kumar</name>
+    <uri></uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;While writing an Application for an Advertising company I came across this utility, this called &lt;code&gt;Cron&lt;/code&gt;.
+It’s a &lt;a href=&quot;http://gnu.org&quot;&gt;GNU-Linux&lt;/a&gt; application to run programs or scripts at specified date/time, so basically you can schedule you jobs using Cron.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;How to use it:&lt;/strong&gt;
+It’s actually a demon. (In case you don’t know) &lt;a href=&quot;http://en.wikipedia.org/wiki/Daemon_(computing)&quot;&gt;Demons&lt;/a&gt; are applications which are started once to keep them running in background and sit idle until they are required. It is already installed in most of the Linux distributions.
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;In the &lt;code&gt;/etc&lt;/code&gt; directory you will probably find some sub directories called ‘&lt;code&gt;cron.hourly&lt;/code&gt;‘, ‘&lt;code&gt;cron.daily&lt;/code&gt;‘, ‘&lt;code&gt;cron.weekly&lt;/code&gt;‘ and ‘&lt;code&gt;cron.monthly&lt;/code&gt;‘. If you place a script into one of those directories it will be run either hourly, daily, weekly or monthly, depending on the name of the directory.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/cron.png&quot; style=&quot;height:70% width:70%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;If you want more flexibility than this, you can edit a crontab (the name for cron’s config files). The main config file is normally &lt;code&gt;/etc/crontab&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;On a default RedHat install, the crontab will look something like this:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;root@pingu &lt;span class=&quot;c&quot;&gt;# cat /etc/crontab&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;SHELL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/bin/bash
+&lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/sbin:/bin:/usr/sbin:/usr/bin
+&lt;span class=&quot;nv&quot;&gt;MAILTO&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;root
+&lt;span class=&quot;nv&quot;&gt;HOME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/
+
+&lt;span class=&quot;c&quot;&gt;# run-parts&lt;/span&gt;
+01 * * * * root run-parts /etc/cron.hourly
+02 4 * * * root run-parts /etc/cron.daily
+22 4 * * 0 root run-parts /etc/cron.weekly
+42 4 1 * * root run-parts /etc/cron.monthly
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The first part is almost self explanatory; it sets the variables for cron.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;SHELL&lt;/strong&gt; is the ‘shell’ cron runs under. If unspecified, it will default to the entry in the /etc/passwd file.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;PATH&lt;/strong&gt; contains the directories which will be in the search path for cron&lt;/p&gt;
+
+&lt;p&gt;e.g if you’ve got a program ‘foo’ in the directory /usr/cog/bin, it might be worth adding /usr/cog/bin to the path, as it will stop you having to use the full path to ‘foo’ every time you want to call it.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;MAILTO&lt;/strong&gt; is who gets mailed the output of each command. If a command cron is running has output (e.g. status reports, or errors), cron will email the output to whoever is specified in this variable. If no one if specified, then the output will be mailed to the owner of the process that produced the output.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;HOME&lt;/strong&gt; is the home directory that is used for cron. If unspecified, it will default to the entry in the /etc/passwd file.&lt;/p&gt;
+
+&lt;p&gt;Now for the more complicated second part of a crontab file. An entry in cron is made up of a series of fields, much like the /etc/passwd file is, but in the crontab they are separated by a space. There are normally seven fields in one entry. The fields are:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;minute hour dom month dow user cmd&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;minute&lt;/strong&gt; This controls what minute of the hour the command will run on, and is between ’0′ and ’59′&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;hour&lt;/strong&gt; This controls what hour the command will run on, and is specified in the 24 hour clock, values must be between 0 and 23 (0 is midnight)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;dom&lt;/strong&gt; This is the Day of Month, that you want the command run on, e.g. to run a command on the 19th of each month, the dom would be 19.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;month&lt;/strong&gt; This is the month a specified command will run on, it may be specified numerically (0-12), or as the name of the month (e.g. May)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;dow&lt;/strong&gt; This is the Day of Week that you want a command to be run on, it can also be numeric (0-7) or as the name of the day (e.g. sun).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;user&lt;/strong&gt; This is the user who runs the command.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;cmd&lt;/strong&gt; This is the command that you want run. This field may contain multiple words or spaces.&lt;/p&gt;
+
+&lt;p&gt;If you don’t wish to specify a value for a field, just place a * in the field.&lt;/p&gt;
+
+&lt;p&gt;e.g.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;01 * * * * root &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; “This &lt;span class=&quot;nb&quot;&gt;command &lt;/span&gt;is run at one min past every hour”
+17 8 * * * root &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; “This &lt;span class=&quot;nb&quot;&gt;command &lt;/span&gt;is run daily at 8:17 am”
+17 20 * * * root &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; “This &lt;span class=&quot;nb&quot;&gt;command &lt;/span&gt;is run daily at 8:17 pm”
+00 4 * * 0 root &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; “This &lt;span class=&quot;nb&quot;&gt;command &lt;/span&gt;is run at 4 am every Sunday”
+* 4 * * Sun root &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; “So is this”
+42 4 1 * * root &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; “This &lt;span class=&quot;nb&quot;&gt;command &lt;/span&gt;is run 4:42 am every 1st of the month”
+01 * 19 07 * root &lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; “This &lt;span class=&quot;nb&quot;&gt;command &lt;/span&gt;is run hourly on the 19th of July”
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;strong&gt;Notes:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Under dow 0 and 7 are both Sunday.&lt;/p&gt;
+
+&lt;p&gt;If both the dom and dow are specified, the command will be executed when either of the events happen.&lt;/p&gt;
+
+&lt;p&gt;e.g.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;* 12 16 * Mon root cmd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Will run cmd at midday every Monday and every 16th, and will produce the same result as both of these entries put together would:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;* 12 16 * * root cmd
+* 12 * * Mon root cmd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Vixie Cron also accepts lists in the fields. Lists can be in the form, 1,2,3 (meaning 1 and 2 and 3) or 1-3 (also meaning 1 and 2 and 3).&lt;/p&gt;
+
+&lt;p&gt;e.g.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;59 11 * * 1,2,3,4,5 root backup.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Will run backup.sh at 11:59 Monday, Tuesday, Wednesday, Thursday and Friday, as will:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;59 11 * * 1-5 root backup.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Cron also supports ‘step’ values.&lt;/p&gt;
+
+&lt;p&gt;A value of */2 in the dom field would mean the command runs every two days and likewise, */5 in the hours field would mean the command runs every 5 hours.&lt;/p&gt;
+
+&lt;p&gt;e.g.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;* 12 10-16/2 * * root backup.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;is the same as:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;* 12 10,12,14,16 * * root backup.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;*/15 9-17 * * * root connection.test
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Will run connection.test every 15 mins between the hours or 9am and 5pm&lt;/p&gt;
+
+&lt;p&gt;Lists can also be combined with each other, or with steps:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;* 12 1-15,17,20-25 * * root cmd
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Will run cmd every midday between the 1st and the 15th as well as the 20th and 25th (inclusive) and also on the 17th of every month.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;* 12 10-16/2 * * root backup.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;is the same as:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;* 12 10,12,14,16 * * root backup.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;When using the names of weekdays or months, it isn’t case sensitive, but only the first three letters should be used, e.g. Mon, sun or Mar, jul.&lt;/p&gt;
+
+&lt;p&gt;Comments are allowed in crontabs, but they must be preceded with a ‘&lt;code&gt;#&lt;/code&gt;’, and must be on a line by them self.&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;/posts/2011/11/cron-job-to-schedule-your-jobs/&quot;&gt;Cron job to schedule your jobs&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on November 15, 2011.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Richard Stallman at IIT Madras]]></title>
+ <link rel="alternate" type="text/html" href="/posts/2011/11/richard-stallman-at-iit-madras/" />
+  <id>/posts/2011/11/richard-stallman-at-iit-madras</id>
+  <published>2011-11-06T07:33:00+05:30</published>
+  <updated>2011-11-06T07:33:00+05:30</updated>
+  <author>
+    <name>Pankaj Kumar</name>
+    <uri></uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Today I got to meet the man who started it all! Who started the 
+concept of “FREE SOFTWARE”. Who started the GNU project. Richard 
+Stallman.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/posts/stallman.jpg&quot; style=&quot;height:40% width:40%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;He is a programmer and philosopher who started the concept of ‘Free Software’. According to him the software should be free (here free implies freedom, not free as in free beer). He talks about four types of freedom:
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;0 - Freedom to use the software the way users wants.&lt;/p&gt;
+
+&lt;p&gt;1 - Freedom to study the code and modify it so as to suit your needs.&lt;/p&gt;
+
+&lt;p&gt;2 - Freedom to help your friends i.e. freedom to share the copy of the software&lt;/p&gt;
+
+&lt;p&gt;3 - Freedom to modify and distribute you own version of the software when you want&lt;/p&gt;
+
+&lt;p&gt;It all starts back in 1983, all the computers require the a basic software to function/operate AKA Operating System. And all the Operating Systems back then were proprietary softwares.&lt;/p&gt;
+
+&lt;p&gt;Stallman defines proprietary softwares as jail, he says most of the proprietary software are malware which have potential to send your personal data to remote server (of course to the developer). He also says most of the proprietary applications have &lt;a href=&quot;http://en.wikipedia.org/wiki/Backdoor_(computing)&quot;&gt;backdoors&lt;/a&gt;, using which the developer can make changes to your system or install application without even seeking the permission of the user. The biggest malware he claims is
+“Microsoft Windows”, there are backdoors in Windows using which Microsoft can install any application on you system without even letting you know and can spy on you, same goes for Mac OS too. He even recommends not use Google Chrome as its source is not public, though Linux guys are at peace at chromium is open source.&lt;/p&gt;
+
+&lt;p&gt;So, Stallman didn’t like the idea that proprietary were keeping the people from excising their full rights over the application. He shared his ideas of free software with people and he formed a small community, sent mail to politician, used banners and all sort of stuff to make people realize that they are being abide of their freedom and make them realize they are in a trap. But nothing much could happen because of the small size of the community. So he himself being a programmer who
+could write a complete OS, decide to write one and make it free for people, make its source free to study, modify and share.&lt;/p&gt;
+
+&lt;p&gt;He started the GNU project in 1983 when he was in MIT, the goal was to create a Unix-like Operating System, Unix was chosen because Unix was the most popular OS back then and Stallman wanted a OS which could support maximum no of machines running, same architecture and same commands were used so that people can shift from Unix to this new Operating System without any hassle. By 1992 they were ready with almost all the component of the OS but one major part was still to be coded, The
+Kernel. Then came in picture the guy called Linus Torvalds, he had already written a kernel called ‘Linux’ but the source was not open to public, in 1992 Linus made Linux open and the same kernel combined with the other package written by Richard Stallman and his fellow mates to give birth to a new OS which was completely free, free to use the way you want, free to study how it works, free to modify and free to share. It was named GNU-Linux.&lt;/p&gt;
+
+&lt;p&gt;But unfortunately to most of the people think it’s only Linux and Linus is &lt;strong&gt;THE&lt;/strong&gt; guy.&lt;/p&gt;
+
+&lt;p&gt;Stallman also started free software moment with the goal of ensuring software users’ four basic freedoms: the freedom to run their software, to study and change their software, and to redistribute copies with or without changes. In 1985 he founded the FSF (Free Software Foundation) to support free software moment.&lt;/p&gt;
+
+&lt;p&gt;He is the main author of several copy left licenses including the &lt;a href=&quot;http://www.gnu.org/licenses/gpl.html&quot;&gt;GNU General Public License&lt;/a&gt;, the most widely used free software license. also developed a number of pieces of widely used software, including the original Emacs, the GNU Compiler Collection, the GNU Debugger, and various tools in the GNU coreutils.&lt;/p&gt;
+
+&lt;p&gt;Visit &lt;a href=&quot;http://www.gnu.org&quot;&gt;GNU&lt;/a&gt; website for more info.&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;/posts/2011/11/richard-stallman-at-iit-madras/&quot;&gt;Richard Stallman at IIT Madras&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on November 06, 2011.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Android this first SummeR]]></title>
+ <link rel="alternate" type="text/html" href="/posts/2011/08/android-this-first-summer/" />
+  <id>/posts/2011/08/android-this-first-summer</id>
+  <published>2011-08-14T06:42:00+05:30</published>
+  <updated>2011-08-14T06:42:00+05:30</updated>
+  <author>
+    <name>Pankaj Kumar</name>
+    <uri></uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;noborder&quot; src=&quot;/images/posts/android.png&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Phew!! finally it gets over, the sleepless nights fighting with end-sems. Although reading one night before the exam is a big pain but still invariably this habit is noticed in almost all the engineering colleges and in almost all the students with the exception of only a few who make it to 9+ points as CGPA.&lt;/p&gt;
+
+&lt;p&gt;While I was wondering today about what i’m going to do in holidays as it’s gonna be long one (3 months), one friend of mine suggested a idea.
+&lt;em&gt;Android App&lt;/em&gt;
+&lt;!--more--&gt;
+Hey! that’s cool! isn’t it. Obviously Android is one of the coolest thing out there nowadays and developing for android at the end of first year of college seems a nice idea.. :)&lt;/p&gt;
+
+&lt;p&gt;The proposal was to develop and an app which will remind you of something, when you reach a particular  location. Like if you wanna fetch something from market when you go next time, you should be able to set a reminder in the app using map or some such thing so that when you visit the market next it will give you a notification about the stuff you wanna buy..
+Cool..!! B-)
+I too forget lots of stuff when I visit my grandma’s place down the streets and then I regret after coming back home. An app of such kind would be a lot helpful in lot many ways.&lt;/p&gt;
+
+&lt;p&gt;After googling for some 30 mins I got know a little more about the app, at least how we can put it formally ;) - Proximity Based Reminder App
+I got to know about Google API for Android development. I guess I need to use eclipse as an IDE.
+It’s goona be in JAVA with XML for app layout.&lt;/p&gt;
+
+&lt;p&gt;I bookmarked a few sites too:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://marakana.com/training/android/&quot;&gt;
+http://marakana.com/training/android/&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;http://www.androidtutorials.org/&quot;&gt;
+http://www.androidtutorials.org/&lt;/a&gt;&lt;br /&gt;
+and of course: &lt;a href=&quot;http://developer.android.com/index.html&quot;&gt;http://developer.android.com/index.html&lt;/a&gt;&lt;br /&gt; (it has some very nice samples)&lt;/p&gt;
+
+&lt;p&gt;and a book: &lt;strong&gt;Professional Android development&lt;/strong&gt; (You can get if from amazon &lt;a href=&quot;http://www.amazon.com/Professional-Android-4-Application-Development/dp/1118102274/ref=sr_1_1?ie=UTF8&amp;amp;qid=1399130483&amp;amp;sr=8-1&amp;amp;keywords=Professional+Android+development&quot;&gt;here&lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;it’s kind of all set, need to give a start. Flying home day after. Will start from next week hopefully.&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;/posts/2011/08/android-this-first-summer/&quot;&gt;Android this first SummeR&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on August 14, 2011.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Vim – Interactive tutorial]]></title>
+ <link rel="alternate" type="text/html" href="/posts/2011/07/vim-interactive-tutorial/" />
+  <id>/posts/2011/07/vim-interactive-tutorial</id>
+  <published>2011-07-29T07:38:00+05:30</published>
+  <updated>2011-07-29T07:38:00+05:30</updated>
+  <author>
+    <name>Pankaj Kumar</name>
+    <uri></uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img class=&quot;noborder&quot; src=&quot;/images/posts/vimlogo.png&quot; style=&quot;height: 30%; width: 30%&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Vim is probably the most configurable text editor know. It was written by &lt;a title=&quot;Bram Moolenaar&quot; href=&quot;http://en.wikipedia.org/wiki/Bram_Moolenaar&quot;&gt;Bram Moolenaar&lt;/a&gt;
+ and first released publicly in 1991 but it’s is in active development 
+and it used across several plaforms including Linux, Windows and Mac.
+It is widely used in developer community due to its:
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;list&gt;
+&lt;li&gt;&lt;strong&gt;Flexible multiple document interface&lt;/strong&gt;: In Vim, your 
+files and unsaved documents are referred to as buffers. The editor gives
+ you a tremendous amount of control over how your buffers are displayed 
+on the screen&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Modal editing with sophisticated keyboard shortcuts&lt;/strong&gt;:
+ Vim has separate interaction modes for text input and text editing. 
+Insert mode behaves largely as you would expect a regular text editor to
+ work—commands are performed with conventional keyboard shortcuts and 
+characters are appended to the buffer as you press the associated keys. 
+In the “normal” mode, however, sequences of key presses perform commands&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Multiple clipboards&lt;/strong&gt;: Instead of a conventional 
+clipboard, Vim stores copied text with a mechanism that it calls 
+registers. This effectively acts like a clipboard multiplexer. The 
+contents of the registers persist between uses of Vim, which means that 
+they are preserved when you quit and will still be there when you open 
+the editor again.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Macros&lt;/strong&gt;: Vim has a macro system that allows you to record keypresses for later playback.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Extremely powerful search capabilities&lt;/strong&gt;: Vim has 
+some very sophisticated tools for automated search and replace, 
+including extensive support for regular expressions. It also has a 
+built-in version of the &lt;code&gt;grep&lt;/code&gt; command, which integrates with
+ Vim’s enormously convenient quickfix feature—a special buffer that 
+shows you a list of results and allows you to conveniently jump between 
+them.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Extremely rich extensibility&lt;/strong&gt;: Vim is prodigiously 
+scriptable and highly conducive to automation. It has its own native 
+scripting language with container types, a unique variable scoping 
+model, and a bunch of useful Vim-specific functionality&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Portability&lt;/strong&gt;: Vim will work almost everywhere that 
+you do. Vim is widely used on Windows, Linux, and Mac OS X and is 
+available for many other platform. Users can run it from the terminal or
+ operate it with a native graphical interface on all three major 
+operating systems.
+&lt;/li&gt;
+&lt;/list&gt;
+
+&lt;p&gt;But starting Vim for the first time is painful for everyone. Here I
+ got an interactive online tutorial on Vim, which is fun to try 
+out: &lt;a href=&quot;http://www.openvim.com/tutorial.html&quot;&gt;http://www.openvim.com/tutorial.html&lt;/a&gt;
+If you are starting with Vim, I would recommend you to try it out once, just for fun. :) &lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;/posts/2011/07/vim-interactive-tutorial/&quot;&gt;Vim – Interactive tutorial&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on July 29, 2011.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[Java vs C++]]></title>
+ <link rel="alternate" type="text/html" href="/posts/2011/03/java-vs-c-plus-plus/" />
+  <id>/posts/2011/03/java-vs-c-plus-plus</id>
+  <published>2011-03-11T07:30:00+05:30</published>
+  <updated>2011-03-11T07:30:00+05:30</updated>
+  <author>
+    <name>Pankaj Kumar</name>
+    <uri></uri>
+    <email></email>
+  </author>
+  <content type="html">&lt;center&gt;&lt;img class=&quot;noborder&quot; src=&quot;/images/posts/FlamingGodzillaSmall.png&quot; /&gt;&lt;/center&gt;
+&lt;p&gt;&lt;br /&gt;
+Phewww.. So finally this marks an end to my research on the 
+hottest topic of discussion, i.e. &lt;strong&gt;being a first/into-second year student at IIT Madras, which language should I take up seriously and try to be 
+proficient at&lt;/strong&gt;? JAVA or C++? (&lt;strong&gt;EDIT&lt;/strong&gt; So here I’m reading this article after 4 four years down the line and feeling how stupid I was!)&lt;/p&gt;
+
+&lt;p&gt;Since childhood I had a passion for this field, I always used to be in the top most students of the class, well at least as far as Computer Science course was concerned. Doing random stuff with computers, reading various articles, 
+playing around with my friends, stealing their social-networking site’s passwords, tinkering and hacking my own system and mobile phones, reading book on various programming language etc..etc.. became my hobby.
+&lt;!--more--&gt;&lt;/p&gt;
+
+&lt;p&gt;But now those days were gone (good old days) I’m in college… I need to proceed toward something specific, which is fruitful, I can’t just keep playing around with random things which attract me. And so the first step was to get a hand at, at least one programming language…’But which one??’ the first question came to my mind… I was able to burn down the problem of ‘Which one??’ to ‘Java or C++’ but couldn’t move further…
+Well, I tell u it was not an easy task, after going through, millions of articles like,&lt;/p&gt;
+
+&lt;p&gt;‘C++ Versus Java’&lt;br /&gt;
+‘Java Versus C++’&lt;br /&gt;
+‘C++ without guns, knives and clubs’&lt;br /&gt;
+‘Programming Careers: Java vs C++’&lt;br /&gt;
+‘Is Java really slow’&lt;br /&gt;
+‘Why Java is Not My Favorite Programming Language’&lt;br /&gt;
+‘Hottest programming language of the year’&lt;br /&gt;
+blah… blah….&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;thousands of wikis: &lt;br /&gt;
+‘Comparison of programming languages’&lt;br /&gt;
+‘Comparison of Java and C++’&lt;br /&gt;
+‘How Java’s Floating-Point Hurts Everyone Everywhere’ lol..&lt;br /&gt;
+‘C++ vs Java performance’&lt;br /&gt;
+blah…blah…&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;hundreds of books, titled:&lt;br /&gt;
+‘Java and C++ A critical comparison’&lt;br /&gt;
+‘Java pulling ahead? Java versus C++ benchmarks’&lt;br /&gt;
+blah… blah…&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;and asking a few people in my insti and out of insti… all the answers which I got were blurry and in many cases people will return question me, what would you like to go for, some would say it doesn’t matter pickup one, language is not a concern for a good programmer get your concept clear, some would say there is more demand for JAVA programmers out there so you should probably start with that and it will even help you in intern, some would say C++ is a great foundation, and that learning Java would be easier once you know C++, some would say pack both maccha go for c#… :( poor me…OK agreed both are nice languages and some time its like comparing and Apple with an Orange but after all there has to be an answer, there will be only one language which I will be going with for 
+now… Which one?!&lt;/p&gt;
+
+&lt;p&gt;But after going through the article ‘&lt;strong&gt;&lt;a href=&quot;http://www.joelonsoftware.com/articles/ThePerilsofJavaSchools.html&quot;&gt;The Perils of JavaSchools&lt;/a&gt;&lt;/strong&gt;‘ by ‘Joel Spolsky‘ I got some idea on which way I should proceed…&lt;br /&gt;
+though even now the answer is not crystal clear and I think it 
+never would be.. but at least I have something which I agree too and 
+seems a fine and convincing answer to my question…&lt;br /&gt;
+&lt;br /&gt;
+The article goes something like this…&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Lazy kids.&lt;/p&gt;
+
+&lt;p&gt;Whatever happened to hard work?&lt;/p&gt;
+
+&lt;p&gt;A sure sign of my descent into senility is bitchin’ and moanin’ about “kids these days,” and how they won’t or can’t do anything hard any more.&lt;/p&gt;
+
+&lt;p&gt;“You were lucky. We lived for three months in a brown paper bag in a septic tank. We had to get up at six in the morning, clean the bag,eat a crust of stale bread, go to work down the mill,fourteen hours a day, week-in week-out, and when we got home our Dad would thrash us to sleep with his belt.” — Monty Python’s Flying Circus,Four Yorkshiremen When I was a kid, I learned to program on punched cards. If you made a mistake, you didn’t have any of these modern features like a backspace key to correct it. You threw away the card and started over.&lt;/p&gt;
+
+&lt;p&gt;When I started interviewing programmers in 1991, I would generally let them use any language they wanted to solve the coding problems I gave them. 99% of the time, they chose C. Nowadays, they tend to choose Java.&lt;/p&gt;
+
+&lt;p&gt;Now, don’t get me wrong: there’s nothing wrong with Java as an implementation language. Wait a minute, I want to modify that statement. I’m not claiming, in this particular article, that there’s anything wrong with Java as an implementation language. There are lots of things wrong with it but those will have to wait for a different article.&lt;/p&gt;
+
+&lt;p&gt;Instead what I’d like to claim is that Java is not, generally, a hard enough programming language that it can be used to discriminate between great programmers and mediocre programmers. It may be a fine language to work in, but that’s not today’s topic. I would even go so far as to say that the fact that Java is not hard enough is a feature, not a bug, but it does have this one problem.&lt;/p&gt;
+
+&lt;p&gt;If I may be so brash, it has been my humble experience that there are two things traditionally taught in universities as a part of a computer science curriculum which many people just never really fully comprehend: pointers and recursion.&lt;/p&gt;
+
+&lt;p&gt;You used to start out in college with a course in data structures, with linked lists and hash tables and whatnot, with extensive use of pointers. Those courses were often used as weedout courses: they were so hard that anyone that couldn’t handle the mental challenge of a CS degree would give up, which was a good thing, because if you thought pointers are hard, wait until you try to prove things about fixed point theory.&lt;/p&gt;
+
+&lt;p&gt;All the kids who did great in high school writing pong games in BASIC for their Apple II would get to college, take CompSci 101, a data structures course, and when they hit the pointers business their brains would just totally explode, and the next thing you knew, they were majoring in Political Science because law school seemed like a better idea. I’ve seen all kinds of figures for drop-out rates in CS and they’re usually between 40% and 70%. The universities tend to see this as a waste; I think it’s just a necessary culling of the people who aren’t going to be happy or successful in programming careers. The other hard course for many young CS students was the course where you learned functional programming, including recursive programming. MIT set the bar very high for these courses, creating a required &lt;a href=&quot;http://sicp.csail.mit.edu/Fall-2005/&quot;&gt;course&lt;/a&gt; (6.001) and a textbook (Abelson &amp;amp; Sussman’s &lt;a href=&quot;http://mitpress.mit.edu/sicp/full-text/book/book.html&quot;&gt;Structure and Interpretation of Computer Programs&lt;/a&gt;) which were used at dozens or even hundreds of top CS schools as the de facto introduction to computer science. (You can, and should, watch an older version of the lectures &lt;a href=&quot;http://swiss.csail.mit.edu/classes/6.001/abelson-sussman-lectures/&quot;&gt;online&lt;/a&gt;.)The difficulty of these courses is astonishing. In the first lecture you’ve learned pretty much all of Scheme, and you’re already being introduced to a fixed-point function that takes another function as its input. When I struggled through such a course, CSE121 at Penn, I watched as many if not most of the students just didn’t make it. The material was too hard. I wrote a long sob email to the professor saying It Just Wasn’t Fair. Somebody at Penn must have listened to me (or one of the other complainers), because that course is now taught in Java.&lt;/p&gt;
+
+&lt;p&gt;I wish they hadn’t listened.&lt;/p&gt;
+
+&lt;p&gt;Therein lies the debate. Years of whinging by lazy CS undergrads like me, combined with complaints from industry about how few CS majors are graduating from American universities, have taken a toll, and in the last decade a large number of otherwise perfectly good schools have gone 100% Java. It’s hip, the recruiters who use “grep” to evaluate resumes seem to like it, and, best of all, there’s nothing hard enough about Java to really weed out the programmers without the part of the brain that does pointers or recursion, so the drop-out rates are lower, and the computer science departments have more students, and bigger budgets, and all is well.&lt;/p&gt;
+
+&lt;p&gt;The lucky kids of JavaSchools are never going to get weird segfaults trying to implement pointer-based hash tables. They’re never going to go stark, raving mad trying to pack things into bits. They’ll never have to get their head around how, in a purely functional program, the value of a variable never changes, and yet, it changes all the time! A paradox!&lt;/p&gt;
+
+&lt;p&gt;They don’t need that part of the brain to get a 4.0 in major.Am I just one of those old-fashioned curmudgeons, like the Four Yorkshiremen, bragging about how tough I was to survive all that hard stuff?&lt;/p&gt;
+
+&lt;p&gt;Heck, in 1900, Latin and Greek were required subjects in college, not because they served any purpose, but because they were sort of considered an obvious requirement for educated people. In some sense my argument is no different that the argument made by the pro-Latin people (all four of them). “[Latin] trains your mind. Trains your memory. Unraveling a Latin sentence is an excellent exercise in thought, a real intellectual puzzle, and a good introduction to logical thinking,” &lt;a href=&quot;http://www.promotelatin.org/whylatin.htm&quot;&gt;writes&lt;/a&gt; Scott Barker. But I can’t find a single university that requires Latin any more. Are pointers and recursion the Latin and Greek of Computer Science?&lt;/p&gt;
+
+&lt;p&gt;Now, I freely admit that programming with pointers is not needed in 90% of the code written today, and in fact, it’s downright dangerous in production code. OK. That’s fine. And functional programming is just not used much in practice. Agreed. But it’s still important for some of the most exciting programming jobs. Without pointers, for example, you’d never be able to work on the Linux kernel. You can’t understand a line of code in Linux, or, indeed, any operating system, without really understanding pointers. Without understanding functional programming, you can’t invent &lt;a href=&quot;http://labs.google.com/papers/mapreduce.html&quot;&gt;MapReduce&lt;/a&gt;, the algorithm that makes Google so massively scalable. The terms Map and Reduce come from Lisp and functional programming. MapReduce is, in retrospect, obvious to anyone who remembers from their 6.001-equivalent programming class that purely functional programs have no side effects and are thus trivially parallelizable. The very fact that Google invented MapReduce, and Microsoft didn’t, says something about why Microsoft is still playing catch up trying to get basic search features to work, while Google has moved on to the next problem: building &lt;a href=&quot;http://en.wikipedia.org/wiki/Skynet&quot;&gt;Skynet&lt;/a&gt;^H^H^H^H^H^H the world’s largest massively parallel &lt;a href=&quot;http://www.pbs.org/cringely/pulpit/pulpit20051117.html&quot;&gt;supercomputer&lt;/a&gt;. I don’t think Microsoft completely understands just how far behind they are on that wave.But beyond the prima-facie importance of pointers and recursion, their real value is that building big systems requires the kind of mental flexibility you get from learning about them, and the mental aptitude you need to avoid being weeded out of the courses in which they are taught. Pointers and recursion require a certain ability to reason, to think in abstractions, and, most importantly, to view a problem at several levels of abstraction simultaneously. And thus, the ability to understand pointers and recursion is directly correlated with the ability to be a great programmer.&lt;/p&gt;
+
+&lt;p&gt;Nothing about an all-Java CS degree really weeds out the students who lack the mental agility to deal with these concepts. As an employer, I’ve seen that the 100% Java schools have started churning out quite a few CS graduates who are simply not smart enough to work as programmers on anything more sophisticated than Yet Another Java Accounting Application, although they did manage to squeak through the newly-dumbed-down coursework. These students would never survive 6.001 at MIT, or CS 323 at Yale, and frankly, that is one reason why, as an employer, a CS degree from MIT or Yale carries more weight than a CS degree from Duke, which recently went All-Java, or U. Penn, which replaced Scheme and ML with Java in trying to teach the class that nearly killed me and my friends, CSE121. Not that I don’t want to hire smart kids from Duke and Penn — I do — it’s just a lot harder for me to figure out who they are. I used to be able to tell the smart kids because they could rip through a recursive algorithm in seconds, or implement linked-list manipulation functions using pointers as fast as they could write on the whiteboard. But with a JavaSchool Grad, I can’t tell if they’re struggling with these problems because they are undereducated or if they’re struggling with these problems because they don’t actually have that special part of the brain that they’re going to need to do great programming work. Paul Graham calls them &lt;a href=&quot;http://www.paulgraham.com/avg.html&quot;&gt;Blub Programmers&lt;/a&gt;. It’s bad enough that JavaSchools fail to weed out the kids who are never going to be great programmers, which the schools could justifiably say is not their problem. Industry, or, at least, the recruiters-who-use-grep, are surely clamoring for Java to be taught. But JavaSchools also fail to train the brains of kids to be adept, agile, and flexible enough to do good software design (and I don’t mean OO “design”, where you spend countless hours rewriting your code to rejiggle your object hierarchy, or you fret about faux “problems” like has-a vs. is-a). You need training to think of things at multiple levels of abstraction simultaneously, and that kind of thinking is exactly what you need to design great software architecture. You may be wondering if teaching object oriented programming (OOP) is a good weed-out substitute for pointers and recursion. The quick answer: no. Without debating OOP on the merits, it is just not hard enough to weed out mediocre programmers. OOP in school consists mostly of memorizing a bunch of vocabulary terms like “encapsulation” and “inheritance” and taking multiple-choice quizzicles on the difference between polymorphism and overloading. Not much harder than memorizing famous dates and names in a history class, OOP poses inadequate mental challenges to scare away first-year students. When you struggle with an OOP problem, your program still works, it’s just sort of hard to maintain. Allegedly. But when you struggle with pointers, your program produces the line &lt;strong&gt;Segmentation Fault&lt;/strong&gt; and you have no idea what’s going on, until you stop and take a deep breath and really try to force your mind to work at two different levels of abstraction simultaneously. The recruiters-who-use-grep, by the way, are ridiculed here, and for good reason. I have never met anyone who can do Scheme, Haskell, and C pointers who can’t pick up Java in two days, and create better Java code than people with five years of experience in Java, but try explaining that to the average HR drone.&lt;/p&gt;
+
+&lt;p&gt;But what about the CS mission of CS departments? They’re not vocational schools! It shouldn’t be their job to train people to work in industry. That’s for community colleges and government retraining programs for displaced workers, they will tell you. They’re supposed to be giving students the fundamental tools to live their lives, not preparing them for their first weeks on the job. Right?&lt;a href=&quot;http://www.columbia.edu/acis/history/026.html&quot;&gt;&lt;img src=&quot;http://www.joelonsoftware.com/pictures/cs1.PNG&quot; alt=&quot;Card Punch -- yes, I learned Fortran on one of these when I was 12.&quot; border=&quot;0&quot; align=&quot;right&quot; /&gt;&lt;/a&gt;Still. CS is proofs (recursion), algorithms (recursion), languages (lambda calculus), operating systems (pointers), compilers (lambda calculus) — and so the bottom line is that a JavaSchool that won’t teach C and won’t teach Scheme is not really teaching computer science, either. As useless as the concept of function currying may be to the real world, it’s obviously a prereq for CS grad school. I can’t understand why the professors on the curriculum committees at CS schools have allowed their programs to be dumbed down to the point where not only can’t they produce working programmers, they can’t even produce CS grad students who might get PhDs and compete for their jobs. Oh wait. Never mind. Maybe I do understand.&lt;/p&gt;
+
+&lt;p&gt;Actually if you go back and research the discussion that took place in academia during the Great Java Shift, you’ll notice that the biggest concern was whether Java was simple enough to use as a teaching language. My God, I thought, they’re trying to dumb down the curriculum even further! Why not spoon feed everything to the students? Let’s have the TAs take their tests for them, too, then nobody will switch to American Studies. How is anyone supposed to learn anything if the curriculum has been carefully designed to make everything easier than it already is? There seems to be a task force underway (&lt;a href=&quot;http://www.sigcse.org/topics/javataskforce/java-task-force.pdf&quot;&gt;PDF&lt;/a&gt;) to figure out a simple subset of Java that can be taught to students, producing simplified documentation that carefully hides all that EJB/J2EE crap from their tender minds, so they don’t have to worry their little heads with any classes that you don’t need to do the ever-easier CS problem sets.&lt;/p&gt;
+
+&lt;p&gt;The most sympathetic interpretation of why CS departments are so enthusiastic to dumb down their classes is that it leaves them more time to teach actual CS concepts, if they don’t need to spend two whole lectures unconfusing students about the difference between, say, a Java&lt;strong&gt; int &lt;/strong&gt;and an &lt;strong&gt;Integer&lt;/strong&gt;. Well, if that’s the case, 6.001 has the perfect answer for you: Scheme, a teaching language so simple that the entire language can be taught to bright students in about ten minutes; then you can spend the rest of the semester on fixed points. Feh.&lt;/p&gt;
+
+&lt;p&gt;I’m going back to ones and zeros.&lt;/p&gt;
+
+&lt;p&gt;(You had ones? Lucky bastard! All we got were zeros.)&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;/posts/2011/03/java-vs-c-plus-plus/&quot;&gt;Java vs C++&lt;/a&gt; was originally published by Pankaj Kumar at &lt;a href=&quot;&quot;&gt;Code Greenhorn&lt;/a&gt; on March 11, 2011.&lt;/p&gt;</content>
+</entry>
+
+</feed>
